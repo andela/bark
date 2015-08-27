@@ -7,4 +7,4 @@
 /captures
 app/build
 *.iml
-app/app.iml
+app/*.iml
