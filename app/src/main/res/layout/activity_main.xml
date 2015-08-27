@@ -6,8 +6,8 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                android:orientation="vertical"
-                tools:context=".MainActivity">
+                tools:context=".MainActivity"
+                android:orientation="vertical">
 
 <<<<<<< HEAD
     <TextView
@@ -26,9 +26,12 @@
 =======
 >>>>>>> 3409b2d... testLandingPage contains app log [pass]
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/applogoImageView" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/applogoImageView"
+            android:src="@drawable/gatekeeper"
+            android:contentDescription="@string/Logo"
+            />
+
 </LinearLayout>
