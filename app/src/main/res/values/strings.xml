@@ -2,5 +2,9 @@
     <string name="app_name">Bark</string>
 
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="app_id">311398712317860</string>
+=======
+    <string name="Logo">GateKeeper Logo</string>
+>>>>>>> efda703... add logo resource
 </resources>
