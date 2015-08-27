@@ -27,9 +27,10 @@ public class ActivityTest {
     }
 
     @Test
-    public void testLandingPageContainApplogo(){
+    public void testImageViewContainsImage(){
         ImageView applogo =  (ImageView) landingActivity.findViewById(R.id.applogoImageView);
         assertThat(applogo).isNotNull();
+        assertThat(applogo.getDrawable()).isNotNull();
     }
 
     @After
