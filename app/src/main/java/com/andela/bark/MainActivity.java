@@ -3,7 +3,6 @@ package com.andela.bark;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -150,8 +149,6 @@ public class MainActivity extends Activity implements
         if (v.getId() == R.id.sign_in_button) {
             onSignInClicked();
         }
-
-        // ...
     }
 
     private void onSignInClicked() {
