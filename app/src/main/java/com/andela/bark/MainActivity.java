@@ -8,9 +8,12 @@ import android.content.Intent;
 =======
 import android.content.Intent;
 import android.content.IntentSender;
+<<<<<<< HEAD
 >>>>>>> 0f33e59... Google sign in achieved
 import android.support.v7.app.ActionBarActivity;
 >>>>>>> e1dd5ff... App logo placeholder
+=======
+>>>>>>> ba994c6... Removed unused import and deleted redundant boilerplate code
 import android.os.Bundle;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -179,8 +182,6 @@ public class MainActivity extends Activity {
         if (v.getId() == R.id.sign_in_button) {
             onSignInClicked();
         }
-
-        // ...
     }
 
     private void onSignInClicked() {
