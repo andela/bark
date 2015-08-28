@@ -1,20 +1,49 @@
 package com.andela.bark;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private TextView mTextDetails;
+
     private CallbackManager mCallbackManager;
+    private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            AccessToken accessToken = loginResult.getAccessToken();
+            Profile profile = Profile.getCurrentProfile();
+            if(profile != null){
+                mTextDetails.setText("Welcome To Gatekeepr" + profile.getName());
+            }
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
 
         LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
         loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(mCallbackManager, mCallback);
     }
 
 
@@ -55,7 +85,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onActivityResult(int i, int j, Intent d){
-
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
