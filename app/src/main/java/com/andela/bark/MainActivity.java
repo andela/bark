@@ -4,34 +4,41 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private TextView mTextDetails;
+    private TextView welcomeMessage;
 
     private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
+
         @Override
         public void onSuccess(LoginResult loginResult) {
+
+
             AccessToken accessToken = loginResult.getAccessToken();
             Profile profile = Profile.getCurrentProfile();
-            if(profile != null){
-                mTextDetails.setText("Welcome To Gatekeepr" + profile.getName());
-            }
+
+            displayWelcomeMessage(profile);
+
+
         }
 
         @Override
@@ -45,6 +52,14 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    private void displayWelcomeMessage(Profile profile){
+        if(profile != null){
+            welcomeMessage.setText("Welcome To Gatekeepr " + profile.getName());
+        }else{
+            welcomeMessage.setText("Nothing");
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +68,40 @@ public class MainActivity extends ActionBarActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
 
+        AccessTokenTracker tracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken1) {
+
+            }
+        };
+
+        ProfileTracker profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
+                displayWelcomeMessage(newProfile);
+            }
+        };
+
+        tracker.startTracking();
+        profileTracker.startTracking();
+
         setContentView(R.layout.activity_main);
         setTitle("Gatekeepr");
 
         LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
+        //loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(mCallbackManager, mCallback);
+
+        welcomeMessage = (TextView)findViewById(R.id.user_name);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Profile profile = Profile.getCurrentProfile();
+
+        displayWelcomeMessage(profile);
+
     }
 
 
@@ -89,4 +132,5 @@ public class MainActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 }
