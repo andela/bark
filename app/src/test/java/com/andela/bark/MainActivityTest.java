@@ -9,11 +9,14 @@ import android.app.Activity;
 =======
 import android.widget.ImageView;
 
+import com.andela.bark.authentication.GoogleAuth;
+
 import org.junit.After;
 >>>>>>> 3409b2d... testLandingPage contains app log [pass]:app/src/test/java/com/andela/bark/ActivityTest.java
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import  static org.junit.Assert.*;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
@@ -45,6 +48,12 @@ public class MainActivityTest {
         ImageView applogo =  (ImageView) landingActivity.findViewById(R.id.applogoImageView);
         assertThat(applogo).isNotNull();
         assertThat(applogo.getDrawable()).isNotNull();
+    }
+
+    @Test
+    public void testGoggleAuth(){
+        GoogleAuth auth = new GoogleAuth(landingActivity);
+        assertNotNull(auth);
     }
 
     @After
