@@ -7,6 +7,7 @@ import android.content.Intent;
 =======
 =======
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.IntentSender;
 <<<<<<< HEAD
 >>>>>>> 0f33e59... Google sign in achieved
@@ -29,18 +30,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 >>>>>>> 0f33e59... Google sign in achieved
+=======
+import android.os.Bundle;
+>>>>>>> d3a5108... Directory Restructure
 
-import com.andela.bark.utils.Handlers.GoogleHandler;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.plus.Plus;
+import com.andela.bark.authentication.GoogleAuth;
 
 
 public class MainActivity extends Activity {
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 public class MainActivity extends Activity {
@@ -54,6 +54,9 @@ public class MainActivity extends Activity {
 =======
     private GoogleHandler googleHandler;
 >>>>>>> 1338636... Refactor GoogleApiClient -> GoogleHandler
+=======
+    private GoogleAuth googleHandler;
+>>>>>>> d3a5108... Directory Restructure
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class MainActivity extends Activity {
         facebookAuth.trackers();
 
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -86,6 +90,9 @@ public class MainActivity extends Activity {
 =======
         googleHandler = new GoogleHandler(this);
 >>>>>>> 1338636... Refactor GoogleApiClient -> GoogleHandler
+=======
+        googleHandler = new GoogleAuth(this);
+>>>>>>> d3a5108... Directory Restructure
     }
 
     @Override

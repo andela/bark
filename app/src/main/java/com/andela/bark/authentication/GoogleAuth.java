@@ -1,4 +1,4 @@
-package com.andela.bark.utils.Handlers;
+package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +17,8 @@ import com.google.android.gms.plus.Plus;
 /**
  * Created by andela-cj on 8/31/15.
  */
-public class GoogleHandler implements   GoogleApiClient.ConnectionCallbacks,
+public class GoogleAuth implements
+        GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
@@ -33,7 +34,7 @@ public class GoogleHandler implements   GoogleApiClient.ConnectionCallbacks,
 
     private Activity myActivity;
 
-    public GoogleHandler (Activity activity){
+    public GoogleAuth(Activity activity){
 
         myActivity = activity;
         // Build GoogleApiClient with access to basic profile

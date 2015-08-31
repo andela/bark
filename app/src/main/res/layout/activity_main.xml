@@ -33,17 +33,10 @@
             android:src="@drawable/gatekeeper"
             android:contentDescription="@string/Logo"
             />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="0dp"
-        android:id="@+id/spaceLinearLayout"
-        android:layout_weight="3"
-        ></LinearLayout>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
