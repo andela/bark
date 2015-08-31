@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.andela.bark.authentication.GoogleAuth;
+import com.google.android.gms.plus.model.people.Person;
 
 
 public class MainActivity extends Activity {
 
 
     private GoogleAuth googleHandler;
+    /* Object used to hold logged in user info */
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
