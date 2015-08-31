@@ -43,8 +43,6 @@ public class GoogleAuth implements
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
                 .addScope(new Scope(Scopes.PROFILE))
-                .addScope(new Scope(Scopes.PLUS_LOGIN))
-                .addScope(new Scope(Scopes.PLUS_ME))
                 .build();
 
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -130,6 +128,8 @@ public class GoogleAuth implements
     }
 
     public void disconnect(){
-        mGoogleApiClient.connect();
+        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+        mGoogleApiClient.disconnect();
     }
 }
