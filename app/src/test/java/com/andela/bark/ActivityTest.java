@@ -5,10 +5,13 @@ package com.andela.bark;
  */
 import android.widget.ImageView;
 
+import com.andela.bark.authentication.GoogleAuth;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import  static org.junit.Assert.*;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
@@ -31,6 +34,12 @@ public class ActivityTest {
         ImageView applogo =  (ImageView) landingActivity.findViewById(R.id.applogoImageView);
         assertThat(applogo).isNotNull();
         assertThat(applogo.getDrawable()).isNotNull();
+    }
+
+    @Test
+    public void testGoggleAuth(){
+        GoogleAuth auth = new GoogleAuth(landingActivity);
+        assertNotNull(auth);
     }
 
     @After
