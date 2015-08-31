@@ -43,6 +43,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+<<<<<<< HEAD
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
 
 
@@ -68,9 +69,32 @@ public class MainActivity extends Activity {
     private GoogleAuth googleHandler;
 >>>>>>> d3a5108... Directory Restructure
 =======
+=======
+import com.google.gson.Gson;
+
+
+public class MainActivity extends Activity implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        View.OnClickListener {
+
+    /* Request code used to invoke sign in user interactions. */
+    private static final int RC_SIGN_IN = 0;
+    /* Client used to interact with Google APIs. */
+    private GoogleApiClient mGoogleApiClient;
+    /* Is there a ConnectionResult resolution in progress? */
+    private boolean mIsResolving = false;
+
+    /* Should we automatically resolve ConnectionResults when possible? */
+    private boolean mShouldResolve = false;
+
+>>>>>>> bb86972... Alerts user fullname after successful login
     /* Object used to hold logged in user info */
     private Person person;
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
+
+    /* Global Gson object */
+    private Gson _gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,9 +191,10 @@ public class MainActivity extends Activity {
         mShouldResolve = false;
 
         person =  Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+        String name = person.getName().getGivenName() + " " + person.getName().getFamilyName();
 
         // Show welcome message
-        Toast.makeText(this, "Welcome " + person.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -219,7 +244,7 @@ public class MainActivity extends Activity {
         mGoogleApiClient.connect();
 
         // Show a message to the user that we are signing in.
-//        mStatusTextView.setText(R.string.signing_in);
+        // mStatusTextView.setText(R.string.signing_in);
         Toast.makeText(this, "Signing in", Toast.LENGTH_LONG).show();
 
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
