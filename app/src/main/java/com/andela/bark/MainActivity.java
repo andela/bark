@@ -2,32 +2,21 @@ package com.andela.bark;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import com.andela.bark.utils.Handlers.GoogleHandler;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.plus.Plus;
+import com.andela.bark.authentication.GoogleAuth;
 
 
 public class MainActivity extends Activity {
 
 
-    private GoogleHandler googleHandler;
+    private GoogleAuth googleHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        googleHandler = new GoogleHandler(this);
+        googleHandler = new GoogleAuth(this);
     }
 
     @Override
