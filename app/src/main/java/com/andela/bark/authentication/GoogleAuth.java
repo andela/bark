@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.andela.bark.FragmentContainerActivity;
 import com.andela.bark.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -59,6 +61,10 @@ public class GoogleAuth implements
 
         // Show the signed-in UI
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
+
+        // Start fragment activity on sign-in
+        Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
+        myActivity.startActivity(i);
     }
 
     @Override
