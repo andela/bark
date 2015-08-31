@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 
 public class MainActivity extends Activity implements
@@ -32,6 +33,8 @@ public class MainActivity extends Activity implements
     /* Should we automatically resolve ConnectionResults when possible? */
     private boolean mShouldResolve = false;
 
+    /* Object used to hold logged in user info */
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +110,10 @@ public class MainActivity extends Activity implements
         Log.d("MainActivity", "onConnected:" + bundle);
         mShouldResolve = false;
 
-        // Show the signed-in UI
-        Toast.makeText(this, "signed-in ", Toast.LENGTH_SHORT).show();
+        person =  Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+
+        // Show welcome message
+        Toast.makeText(this, "Welcome " + person.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -140,7 +145,7 @@ public class MainActivity extends Activity implements
             }
         } else {
             // Show the signed-out UI
-            Toast.makeText(this, "Signed-out", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show();
         }
     }
 
