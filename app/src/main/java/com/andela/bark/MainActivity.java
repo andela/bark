@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.google.gson.Gson;
 
 
 public class MainActivity extends Activity implements
@@ -35,6 +36,9 @@ public class MainActivity extends Activity implements
 
     /* Object used to hold logged in user info */
     private Person person;
+
+    /* Global Gson object */
+    private Gson _gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +115,10 @@ public class MainActivity extends Activity implements
         mShouldResolve = false;
 
         person =  Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+        String name = person.getName().getGivenName() + " " + person.getName().getFamilyName();
 
         // Show welcome message
-        Toast.makeText(this, "Welcome " + person.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -163,7 +168,7 @@ public class MainActivity extends Activity implements
         mGoogleApiClient.connect();
 
         // Show a message to the user that we are signing in.
-//        mStatusTextView.setText(R.string.signing_in);
+        // mStatusTextView.setText(R.string.signing_in);
         Toast.makeText(this, "Signing in", Toast.LENGTH_LONG).show();
 
     }
