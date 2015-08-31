@@ -44,6 +44,7 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
 
 
@@ -71,6 +72,8 @@ public class MainActivity extends Activity {
 =======
 =======
 import com.google.gson.Gson;
+=======
+>>>>>>> 8dd5269... Removed unnecessary reference to Gson
 
 
 public class MainActivity extends Activity implements
@@ -92,9 +95,6 @@ public class MainActivity extends Activity implements
     /* Object used to hold logged in user info */
     private Person person;
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
-
-    /* Global Gson object */
-    private Gson _gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
