@@ -16,7 +16,6 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.google.gson.Gson;
 
 
 public class MainActivity extends Activity implements
@@ -36,9 +35,6 @@ public class MainActivity extends Activity implements
 
     /* Object used to hold logged in user info */
     private Person person;
-
-    /* Global Gson object */
-    private Gson _gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
