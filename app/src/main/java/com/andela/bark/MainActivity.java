@@ -1,136 +1,35 @@
 package com.andela.bark;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
-    private TextView welcomeMessage;
-
-    private CallbackManager mCallbackManager;
-    private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
-
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-
-
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-
-            displayWelcomeMessage(profile);
-
-
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-        }
-    };
-
-    private void displayWelcomeMessage(Profile profile){
-        if(profile != null){
-            welcomeMessage.setText("Welcome To Gatekeepr " + profile.getName());
-        }else{
-            welcomeMessage.setText("Nothing");
-        }
-    }
+    private FacebookAuth facebookAuth = new FacebookAuth();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Initialize facebook sdk
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        mCallbackManager = CallbackManager.Factory.create();
-
-        AccessTokenTracker tracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken1) {
-
-            }
-        };
-
-        ProfileTracker profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
-                displayWelcomeMessage(newProfile);
-            }
-        };
-
-        tracker.startTracking();
-        profileTracker.startTracking();
+        facebookAuth.setupFacebookAuth(this);
+        facebookAuth.setCallbackManager();
+        facebookAuth.trackers();
 
         setContentView(R.layout.activity_main);
-        setTitle("Gatekeepr");
 
-        LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
-        //loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(mCallbackManager, mCallback);
-
-        welcomeMessage = (TextView)findViewById(R.id.user_name);
+        facebookAuth.loginButton(this);
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        Profile profile = Profile.getCurrentProfile();
-
-        displayWelcomeMessage(profile);
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        facebookAuth.onActivityResult(requestCode, resultCode, data);
     }
-
 }

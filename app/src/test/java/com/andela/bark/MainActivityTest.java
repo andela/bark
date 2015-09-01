@@ -25,10 +25,4 @@ public class MainActivityTest {
         Activity activity = Robolectric.setupActivity(MainActivity.class);
         assertTrue(activity.getTitle().toString().equals("Gatekeepr"));
     }
-
-    @Test
-    public void titleIsCorrect2()  throws Exception{
-        Activity activity = Robolectric.setupActivity(MainActivity.class);
-        assertTrue(activity.getTitle().toString().equals("Gatekeepr"));
-    }
 }
