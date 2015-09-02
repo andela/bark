@@ -54,4 +54,5 @@ public class MainActivity extends Activity {
         super.onStop();
         googleHandler.disconnect();
     }
+
 }

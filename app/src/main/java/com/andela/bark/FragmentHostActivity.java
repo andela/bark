@@ -1,16 +1,17 @@
 
 package com.andela.bark;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.andela.bark.fragments.EventListFragment;
 
 /**
  * Created by andela-jugba on 8/31/15.
  */
-public class FragmentHostActivity extends FragmentActivity{
+public class FragmentHostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,5 +29,14 @@ public class FragmentHostActivity extends FragmentActivity{
             fragment = new EventListFragment();
             fm.beginTransaction().add(R.id.fragmentContainer,fragment).commit();
         }
+    }
+
+    public void setActionBarTitle(String title) {
+        this.setTitle(title);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
