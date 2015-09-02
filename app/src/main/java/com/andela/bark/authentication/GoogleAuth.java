@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.andela.bark.FragmentContainerActivity;
+import com.andela.bark.EventListFragmentContainerActivity;
 import com.andela.bark.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -104,7 +104,7 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-            Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
+            Intent i  = new Intent(myActivity, EventListFragmentContainerActivity.class);
             myActivity.startActivity(i);
 //            onSignInClicked();
         }

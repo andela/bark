@@ -37,7 +37,7 @@
                   android:label="@string/app_name" />
 =======
         <activity
-            android:name=".FragmentContainerActivity"
+            android:name=".EventListFragmentContainerActivity"
             android:label="@string/app_name"></activity>
 >>>>>>> 9274a10... Add fragmentContainerActivity to Manifest
     </application>
