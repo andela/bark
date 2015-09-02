@@ -127,9 +127,11 @@ public class GoogleAuth implements
         mGoogleApiClient.connect();
     }
 
-    public void disconnect(){
-        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+    public void disconnect() {
+        if (mGoogleApiClient.isConnected()){
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+         }
         mGoogleApiClient.disconnect();
     }
 }
