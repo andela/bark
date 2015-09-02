@@ -47,6 +47,7 @@ public class GoogleAuth implements
                 .addScope(new Scope(Scopes.PROFILE))
                 .build();
 
+
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 
@@ -62,9 +63,9 @@ public class GoogleAuth implements
         // Show the signed-in UI
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
 
-        // Start fragment activity on sign-in
-        Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
-        myActivity.startActivity(i);
+//        // Start fragment activity on sign-in
+//        Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
+//        myActivity.startActivity(i);
     }
 
     @Override
@@ -103,7 +104,9 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-            onSignInClicked();
+            Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
+            myActivity.startActivity(i);
+//            onSignInClicked();
         }
     }
 
@@ -133,11 +136,17 @@ public class GoogleAuth implements
         mGoogleApiClient.connect();
     }
 
+<<<<<<< HEAD
     public void disconnect() {
         if (mGoogleApiClient.isConnected()){
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
          }
+=======
+    public void disconnect(){
+//        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+//        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+>>>>>>> 24b864e... list
         mGoogleApiClient.disconnect();
     }
 }
