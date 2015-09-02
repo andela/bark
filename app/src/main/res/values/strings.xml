@@ -6,5 +6,11 @@
     <string name="app_id">311398712317860</string>
 =======
     <string name="Logo">GateKeeper Logo</string>
+<<<<<<< HEAD
 >>>>>>> efda703... add logo resource
+=======
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> 9665b6b... Added event detail page. Ability to transition between two fragments
 </resources>

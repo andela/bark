@@ -257,5 +257,10 @@ public class MainActivity extends Activity implements
 
 >>>>>>> 35fe612... Now shows details of logged in user after authentication
     }
+<<<<<<< HEAD
 }
 >>>>>>> 6c14333... Added google api client initialization cade to Main activity
+=======
+
+}
+>>>>>>> 9665b6b... Added event detail page. Ability to transition between two fragments
