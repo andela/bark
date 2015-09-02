@@ -1,9 +1,10 @@
-package com.andela.bark;
+package com.andela.bark.authentication;
 
 
 import android.app.Activity;
 import android.content.Intent;
 
+import com.andela.bark.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
