@@ -35,6 +35,10 @@ import android.os.Bundle;
 >>>>>>> d3a5108... Directory Restructure
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.andela.bark.authentication.FacebookAuth;
+>>>>>>> 3a4d2e3... move facebook auth file to authentication package
 import com.andela.bark.authentication.GoogleAuth;
 =======
 import com.google.android.gms.common.ConnectionResult;
