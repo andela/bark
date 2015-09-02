@@ -35,11 +35,18 @@
                       "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:label="@string/app_name" />
+<<<<<<< HEAD
 =======
         <activity
             android:name=".EventListFragmentContainerActivity"
             android:label="@string/app_name"></activity>
 >>>>>>> 9274a10... Add fragmentContainerActivity to Manifest
+=======
+
+        <activity
+            android:name=".FragmentHostActivity"
+            android:label="@string/app_name"></activity>
+>>>>>>> 1710683... Add FragmentHostActivity to AndroidManifest.xml
     </application>
 
 </manifest>
