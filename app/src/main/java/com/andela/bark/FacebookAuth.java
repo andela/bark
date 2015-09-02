@@ -20,16 +20,17 @@ import com.facebook.login.widget.LoginButton;
  */
 public class FacebookAuth {
 
+    private Profile userProfile;
+    private AccessToken accessToken;
+
     private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
 
+
         @Override
         public void onSuccess(LoginResult loginResult) {
-            AccessToken accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
-
-            userProfile(profile);
-            getAccessToken(accessToken);
+            accessToken = loginResult.getAccessToken();
+            userProfile = Profile.getCurrentProfile();
         }
 
         @Override
@@ -80,11 +81,11 @@ public class FacebookAuth {
 
     }
 
-    public Profile userProfile(Profile profile){
-        return profile;
+    public Profile userProfile(){
+        return userProfile;
     }
 
-    public AccessToken getAccessToken(AccessToken accessToken){
+    public AccessToken getAccessToken(){
         return accessToken;
     }
 }
