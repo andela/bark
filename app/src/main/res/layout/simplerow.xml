@@ -3,8 +3,16 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/rowTextView"
+<<<<<<< HEAD
     android:padding="10dp"
     android:textSize="16sp"
     android:textAlignment="center">
 
 </TextView>
+=======
+    android:padding="16dp"
+    android:textSize="16sp"
+    android:textAlignment="center">
+
+</TextView>
+>>>>>>> b1c8850... Add simplerow.xml
