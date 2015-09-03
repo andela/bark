@@ -60,7 +60,6 @@ public class EventListFragment extends android.support.v4.app.Fragment {
 
     private void inflateEventList(){
         // Create and populate dummy events
-
         List<ParseObject> object;
         ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
         try {

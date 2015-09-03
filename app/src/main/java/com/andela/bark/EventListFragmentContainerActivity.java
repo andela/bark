@@ -18,8 +18,6 @@ public class EventListFragmentContainerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragmentcontainer);
 
         setUpFragment();
-        //setTitle("jjj");
-
     }
 
     private void setUpFragment(){
