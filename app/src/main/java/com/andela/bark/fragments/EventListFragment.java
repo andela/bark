@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.util.Log;
 
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
