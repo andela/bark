@@ -11,27 +11,36 @@ import android.widget.ListView;
 
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
-
+import com.andela.bark.fragments.EventDetailFragment;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by andela-jugba on 8/31/15.
+ * Created by andela on 8/31/15.
  */
 public class EventListFragment extends android.support.v4.app.Fragment {
     private ArrayAdapter<String> listAdapter;
     private ListView mainListView;
-    private String[] events;
+    private List<ParseObject> object;
+
+    private static final String REQUEST_STRING = "Events";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle("Events");
+        Parse.initialize(getActivity(), "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_eventlist,container,false);
+
 
         // Find the ListView resource.
         mainListView = (ListView) v.findViewById( R.id.mainListView );
@@ -42,7 +51,8 @@ public class EventListFragment extends android.support.v4.app.Fragment {
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String event = events[position];
+                ParseObject obj = object.get(position);
+                String event = obj.getString("Name");
                 Bundle args = new Bundle();
                 args.putString("Event", event);
 
@@ -61,16 +71,30 @@ public class EventListFragment extends android.support.v4.app.Fragment {
     }
 
     private void inflateEventList(){
-        // Create and populate dummy events
-        events = new String[] { "BootcampX", "NextEvents", "Fresh", "BurningMan",
-                "Sex And The City", "New Moon", "The Catch", "Neptune Mix"};
-        ArrayList<String> eventList = new ArrayList<String>();
-        eventList.addAll(Arrays.asList(events));
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
+        try {
+            ArrayList<String> s = new ArrayList<String>();
+            object = query.find();
+            for (ParseObject ob : object){
+                Event event = new Event();
+                event.name = ob.getString("Name");
+                event.location = ob.getString("location");
+                event.id = ob.getObjectId();
 
-        // Create ArrayAdapter using the event list
-        listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, eventList);
+                s.add(event.name);
+            }
+            listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, s.toArray(new String[0]));
+            ((FragmentHostActivity)getActivity()).setActionBarTitle("Event List");
 
-        // Set action bar title
-        ((FragmentHostActivity)getActivity()).setActionBarTitle("Event List");
+        }catch (com.parse.ParseException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    protected class Event {
+        String name;
+        String id;
+        String location;
     }
 }
