@@ -9,40 +9,23 @@
                 tools:context=".MainActivity"
                 android:orientation="vertical">
 
-<<<<<<< HEAD
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
+
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login_button" android:layout_centerHorizontal="true"/>
+        android:id="@+id/applogoImageView"
+        android:src="@drawable/gatekeeper"
+        android:contentDescription="@string/Logo"
+        />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
-<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
-=======
->>>>>>> 3409b2d... testLandingPage contains app log [pass]
-=======
-        android:layout_width="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5"/>
->>>>>>> 7e16b2f... change style
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/applogoImageView"
-            android:src="@drawable/gatekeeper"
-            android:contentDescription="@string/Logo"
-            />
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
