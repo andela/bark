@@ -7,12 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-<<<<<<< HEAD
 import com.andela.bark.EventListFragmentContainerActivity;
-=======
 import com.andela.bark.FragmentHostActivity;
->>>>>>> 7498d89... Create intent to start FragmentHostActivity
 import com.andela.bark.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -66,16 +62,8 @@ public class GoogleAuth implements
 
         // Show the signed-in UI
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
-
-<<<<<<< HEAD
-//        // Start fragment activity on sign-in
-//        Intent i  = new Intent(myActivity, FragmentContainerActivity.class);
-//        myActivity.startActivity(i);
-=======
-        // Start fragment activity on sign-in
         Intent i  = new Intent(myActivity, FragmentHostActivity.class);
         myActivity.startActivity(i);
->>>>>>> 7498d89... Create intent to start FragmentHostActivity
     }
 
     @Override
@@ -114,8 +102,7 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-<<<<<<< HEAD
-            Intent i  = new Intent(myActivity, EventListFragmentContainerActivity.class);
+            Intent i  = new Intent(myActivity, FragmentHostActivity.class);
             myActivity.startActivity(i);
 //            onSignInClicked();
         }
@@ -129,22 +116,16 @@ public class GoogleAuth implements
         // Show a message to the user that we are signing in.
 //        mStatusTextView.setText(R.string.signing_in);
         Toast.makeText(myActivity, "Signing in", Toast.LENGTH_LONG).show();
-=======
-            if (v.getId() == R.id.sign_in_button) {
-                //if login successfull, goto next activity
-                Intent i  = new Intent(myActivity, EventListFragmentContainerActivity.class);
-                myActivity.startActivity(i);
-            }
-        }
->>>>>>> 46c245a... add intent to list when facebook login successful
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("MainActivity", "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
 
         if (requestCode == RC_SIGN_IN) {
             // If the error resolution was not successful we should not resolve further.
-            if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false; }
+            if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false;
+            }
 
             mIsResolving = false;
             mGoogleApiClient.connect();
@@ -155,17 +136,9 @@ public class GoogleAuth implements
         mGoogleApiClient.connect();
     }
 
-<<<<<<< HEAD
-    public void disconnect() {
-        if (mGoogleApiClient.isConnected()){
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
-         }
-=======
     public void disconnect(){
 //        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
 //        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
->>>>>>> 24b864e... list
         mGoogleApiClient.disconnect();
     }
 }

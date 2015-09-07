@@ -3,12 +3,8 @@ package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
-
-<<<<<<< HEAD
-=======
 import com.andela.bark.EventListFragmentContainerActivity;
 import com.andela.bark.FragmentHostActivity;
->>>>>>> 7473472... merge attempt failed
 import com.andela.bark.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
