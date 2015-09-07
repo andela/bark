@@ -4,6 +4,11 @@ package com.andela.bark.authentication;
 import android.app.Activity;
 import android.content.Intent;
 
+<<<<<<< HEAD
+=======
+import com.andela.bark.EventListFragmentContainerActivity;
+import com.andela.bark.FragmentHostActivity;
+>>>>>>> 7473472... merge attempt failed
 import com.andela.bark.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -35,7 +40,7 @@ public class FacebookAuth {
             accessToken = loginResult.getAccessToken();
             userProfile = Profile.getCurrentProfile();
 
-            Intent i = new Intent(activity, EventListFragmentContainerActivity.class);
+            Intent i = new Intent(activity, FragmentHostActivity.class);
             activity.startActivity(i);
         }
 
