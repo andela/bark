@@ -104,6 +104,7 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
+<<<<<<< HEAD
             Intent i  = new Intent(myActivity, EventListFragmentContainerActivity.class);
             myActivity.startActivity(i);
 //            onSignInClicked();
@@ -118,6 +119,14 @@ public class GoogleAuth implements
         // Show a message to the user that we are signing in.
 //        mStatusTextView.setText(R.string.signing_in);
         Toast.makeText(myActivity, "Signing in", Toast.LENGTH_LONG).show();
+=======
+            if (v.getId() == R.id.sign_in_button) {
+                //if login successfull, goto next activity
+                Intent i  = new Intent(myActivity, EventListFragmentContainerActivity.class);
+                myActivity.startActivity(i);
+            }
+        }
+>>>>>>> 46c245a... add intent to list when facebook login successful
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

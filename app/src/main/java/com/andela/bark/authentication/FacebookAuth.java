@@ -21,6 +21,8 @@ import com.facebook.login.widget.LoginButton;
  */
 public class FacebookAuth {
 
+    private Activity activity;
+
     private Profile userProfile;
     private AccessToken accessToken;
 
@@ -32,6 +34,9 @@ public class FacebookAuth {
         public void onSuccess(LoginResult loginResult) {
             accessToken = loginResult.getAccessToken();
             userProfile = Profile.getCurrentProfile();
+
+            Intent i = new Intent(activity, EventListFragmentContainerActivity.class);
+            activity.startActivity(i);
         }
 
         @Override
@@ -44,6 +49,10 @@ public class FacebookAuth {
 
         }
     };
+
+    public FacebookAuth(Activity a){
+        activity = a;
+    }
 
 
     public void setupFacebookAuth(Activity activity){

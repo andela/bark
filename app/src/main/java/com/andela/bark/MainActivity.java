@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
 <<<<<<< HEAD
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private FacebookAuth facebookAuth = new FacebookAuth();
 =======
 >>>>>>> e1dd5ff... App logo placeholder
@@ -71,6 +72,9 @@ public class MainActivity extends Activity {
     private GoogleHandler googleHandler;
 >>>>>>> 1338636... Refactor GoogleApiClient -> GoogleHandler
 =======
+=======
+    private FacebookAuth facebookAuth = new FacebookAuth(this);
+>>>>>>> 46c245a... add intent to list when facebook login successful
     private GoogleAuth googleHandler;
 >>>>>>> d3a5108... Directory Restructure
 =======
