@@ -24,17 +24,22 @@ import static org.assertj.android.api.Assertions.assertThat;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class MainActivityTest {
+    private MainActivity landingActivity;
+
+    @Before
+    public void setUp() throws Exception {
+        landingActivity = Robolectric.buildActivity(MainActivity.class).create().get();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+
+    }
 
     @Test
     public void titleIsCorrect()  throws Exception{
         Activity activity = Robolectric.setupActivity(MainActivity.class);
         assertTrue(activity.getTitle().toString().equals("Gatekeepr"));
-    }
-
-    private MainActivity landingActivity;
-    @Before
-    public void setUp() throws Exception {
-        landingActivity = Robolectric.buildActivity(MainActivity.class).create().get();
     }
 
     @Test
@@ -50,9 +55,5 @@ public class MainActivityTest {
         assertNotNull(auth);
     }
 
-    @After
-    public void tearDown() throws Exception {
 
-
-    }
 }

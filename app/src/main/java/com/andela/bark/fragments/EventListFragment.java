@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import android.support.v4.app.Fragment;
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
-import com.andela.bark.fragments.EventDetailFragment;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * Created by andela on 8/31/15.
  */
-public class EventListFragment extends android.support.v4.app.Fragment {
+public class EventListFragment extends Fragment {
     private ArrayAdapter<String> listAdapter;
     private ListView mainListView;
     private List<ParseObject> object;
@@ -80,11 +79,9 @@ public class EventListFragment extends android.support.v4.app.Fragment {
                 events.add(event.name);
             }
 
-
         }catch (com.parse.ParseException e){
             e.printStackTrace();
         }finally{
-
             listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
             ((FragmentHostActivity)getActivity()).setActionBarTitle("Event List");
         }
