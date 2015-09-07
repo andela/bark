@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import com.andela.bark.EventListFragmentContainerActivity;
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
 import com.google.android.gms.common.ConnectionResult;
