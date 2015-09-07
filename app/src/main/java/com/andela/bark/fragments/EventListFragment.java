@@ -30,7 +30,6 @@ public class EventListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Events");
         Parse.initialize(getActivity(), "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw",
                 "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
     }
@@ -39,7 +38,7 @@ public class EventListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_eventlist,container,false);
-
+        getActivity().setTitle("Event List");
         // Find the ListView resource.
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
@@ -83,7 +82,6 @@ public class EventListFragment extends Fragment {
             e.printStackTrace();
         }finally{
             listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
-            ((FragmentHostActivity)getActivity()).setActionBarTitle("Event List");
         }
     }
 

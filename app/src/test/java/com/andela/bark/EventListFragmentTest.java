@@ -5,6 +5,7 @@ import android.widget.ListView;
 
 import com.andela.bark.fragments.EventListFragment;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,9 +35,21 @@ public class EventListFragmentTest {
     }
 
     @Test
-    public void testFragment() throws Exception {
-
+    public void testFragmentTitle() throws Exception {
+        Fragment fragment = hostActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+        assertNotNull(fragment);
         String name = (String)hostActivity.getTitle();
-        assertEquals("Event List", name);
+        assertEquals("Events", name);
+    }
+
+
+//    @Test
+    public void testEventListFragment(){
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        hostActivity = null;
     }
 }

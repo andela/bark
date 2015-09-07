@@ -30,10 +30,6 @@ public class FragmentHostActivity extends AppCompatActivity {
         }
     }
 
-    public void setActionBarTitle(String title) {
-        this.setTitle(title);
-    }
-
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {

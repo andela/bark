@@ -23,7 +23,8 @@ public class EventDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_event_detail, container, false);
         Bundle args = getArguments();
         String event = args.getString("Event");
-        ((FragmentHostActivity)getActivity()).setActionBarTitle(event);
+        getActivity().setTitle(event);
+
         return v;
     }
 }
