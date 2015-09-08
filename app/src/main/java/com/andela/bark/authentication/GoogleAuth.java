@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -59,6 +60,8 @@ public class GoogleAuth implements
 
         // Show the signed-in UI
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
+        Intent i  = new Intent(myActivity, FragmentHostActivity.class);
+        myActivity.startActivity(i);
     }
 
     @Override
@@ -98,6 +101,9 @@ public class GoogleAuth implements
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
             onSignInClicked();
+            Intent i  = new Intent(myActivity, FragmentHostActivity.class);
+            myActivity.startActivity(i);
+//            onSignInClicked();
         }
     }
 
@@ -111,12 +117,14 @@ public class GoogleAuth implements
         Toast.makeText(myActivity, "Signing in", Toast.LENGTH_LONG).show();
     }
 
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("MainActivity", "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
 
         if (requestCode == RC_SIGN_IN) {
             // If the error resolution was not successful we should not resolve further.
-            if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false; }
+            if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false;
+            }
 
             mIsResolving = false;
             mGoogleApiClient.connect();
