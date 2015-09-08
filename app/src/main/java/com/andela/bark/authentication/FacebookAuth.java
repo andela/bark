@@ -3,6 +3,7 @@ package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.andela.bark.FragmentHostActivity;
@@ -15,6 +16,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -24,11 +26,10 @@ import com.facebook.login.widget.LoginButton;
 public class FacebookAuth {
 
     private Activity activity;
-
     private Profile userProfile;
     private AccessToken accessToken;
-
     private CallbackManager mCallbackManager;
+
     public FacebookAuth(Activity a){
         activity = a;
     }
@@ -40,9 +41,10 @@ public class FacebookAuth {
             accessToken = loginResult.getAccessToken();
             userProfile = Profile.getCurrentProfile();
 
-            Intent i = new Intent(activity, FragmentHostActivity.class);
-            activity.startActivity(i);
-            Toast.makeText(activity, "Facebook login successfull ", Toast.LENGTH_SHORT).show();
+            if(userProfile != null){
+                Intent i  = new Intent(activity, FragmentHostActivity.class);
+                activity.startActivity(i);
+            }
         }
 
         @Override
@@ -92,7 +94,10 @@ public class FacebookAuth {
 
     public void setCallbackManager(){
         mCallbackManager = CallbackManager.Factory.create();
+    }
 
+    public void logOut(){
+        LoginManager.getInstance().logOut();
     }
 
     public Profile userProfile(){

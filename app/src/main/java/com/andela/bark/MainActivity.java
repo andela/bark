@@ -21,11 +21,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         facebookAuth = new FacebookAuth(this);
+
         facebookAuth.setupFacebookAuth(this);
         facebookAuth.setCallbackManager();
         facebookAuth.trackers();
 
         setContentView(R.layout.activity_main);
+        facebookAuth.loginButton(this);
+
         googleHandler = new GoogleAuth(this);
     }
 
@@ -33,6 +36,7 @@ public class MainActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
+        facebookAuth.logOut();
     }
 
     @Override
@@ -52,6 +56,7 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         googleHandler.disconnect();
+        facebookAuth.logOut();
     }
 
 }
