@@ -5,6 +5,7 @@ package com.andela.bark;
  */
 import android.widget.ImageView;
 
+import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
 
 import org.junit.After;
@@ -40,6 +41,12 @@ public class ActivityTest {
     public void testGoggleAuth(){
         GoogleAuth auth = new GoogleAuth(landingActivity);
         assertNotNull(auth);
+    }
+
+    @Test
+    public void testFacebookAuth(){
+        FacebookAuth fbAuth = new FacebookAuth(landingActivity);
+        assertNotNull(fbAuth);
     }
 
     @After

@@ -17,6 +17,7 @@ import static junit.framework.Assert.*;
 import static org.assertj.android.api.Assertions.assertThat;
 
 import java.lang.annotation.ElementType;
+import java.util.ArrayList;
 
 /**
  * Created by andela-cj on 9/7/15.
@@ -38,15 +39,18 @@ public class EventListFragmentTest {
     public void testFragmentTitle() throws Exception {
         Fragment fragment = hostActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         assertNotNull(fragment);
-        String name = (String)hostActivity.getTitle();
-        assertEquals("Events", name);
+
+        android.support.v4.app.FragmentManager fragmentManager = hostActivity.getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+
+
+        //String title = (String) hostActivity.getTitle();
+        //assertEquals("Event List", title);
     }
 
-
-//    @Test
-    public void testEventListFragment(){
-
-    }
 
     @After
     public void tearDown() throws Exception {

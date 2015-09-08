@@ -10,7 +10,7 @@ import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends Activity {
 
-    private FacebookAuth facebookAuth = new FacebookAuth(this);
+    private FacebookAuth facebookAuth;
     private GoogleAuth googleHandler;
 
     /* Object used to hold logged in user info */
@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        facebookAuth = new FacebookAuth(this);
         facebookAuth.setupFacebookAuth(this);
         facebookAuth.setCallbackManager();
         facebookAuth.trackers();

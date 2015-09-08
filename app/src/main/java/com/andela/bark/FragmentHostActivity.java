@@ -1,4 +1,3 @@
-
 package com.andela.bark;
 
 import android.os.Bundle;
@@ -20,7 +19,6 @@ public class FragmentHostActivity extends AppCompatActivity {
     }
 
     private void setUpFragment(){
-
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 

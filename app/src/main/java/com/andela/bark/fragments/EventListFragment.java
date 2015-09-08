@@ -77,7 +77,6 @@ public class EventListFragment extends Fragment {
                 event.id = ob.getObjectId();
                 events.add(event.name);
             }
-
         }catch (com.parse.ParseException e){
             e.printStackTrace();
         }finally{

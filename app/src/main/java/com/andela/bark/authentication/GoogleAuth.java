@@ -29,7 +29,6 @@ public class GoogleAuth implements
     private GoogleApiClient mGoogleApiClient;
     /* Is there a ConnectionResult resolution in progress? */
     private boolean mIsResolving = false;
-
     /* Should we automatically resolve ConnectionResults when possible? */
     private boolean mShouldResolve = false;
 
@@ -45,6 +44,7 @@ public class GoogleAuth implements
                 .addApi(Plus.API)
                 .addScope(new Scope(Scopes.PROFILE))
                 .build();
+
 
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
@@ -100,7 +100,6 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-            onSignInClicked();
             Intent i  = new Intent(myActivity, FragmentHostActivity.class);
             myActivity.startActivity(i);
 //            onSignInClicked();
@@ -136,8 +135,8 @@ public class GoogleAuth implements
     }
 
     public void disconnect(){
-        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+//        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+//        Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
         mGoogleApiClient.disconnect();
     }
 }
