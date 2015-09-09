@@ -30,8 +30,6 @@ public class EventListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Parse.initialize(getActivity(), "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw",
-                "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
     }
 
     @Nullable

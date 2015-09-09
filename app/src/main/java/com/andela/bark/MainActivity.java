@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
 import com.google.android.gms.plus.model.people.Person;
+import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 
 public class MainActivity extends Activity {
@@ -30,6 +32,14 @@ public class MainActivity extends Activity {
         facebookAuth.loginButton(this);
 
         googleHandler = new GoogleAuth(this);
+
+        try {
+            Parse.initialize(this, "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
+            ParseInstallation.getCurrentInstallation().saveInBackground();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
