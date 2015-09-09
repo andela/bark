@@ -3,8 +3,6 @@ package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;

@@ -1,6 +1,5 @@
 package com.andela.bark.fragments;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,10 +11,8 @@ import android.widget.ListView;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
-import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
