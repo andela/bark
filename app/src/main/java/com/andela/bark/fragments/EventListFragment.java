@@ -1,6 +1,5 @@
 package com.andela.bark.fragments;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,20 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.support.v4.app.Fragment;
-import android.widget.TextView;
-
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
-import com.parse.FindCallback;
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
-
-import bolts.Continuation;
-import bolts.Task;
 
 /**
  * Created by andela on 8/31/15.
@@ -31,7 +23,7 @@ import bolts.Task;
 public class EventListFragment extends Fragment {
     private ArrayAdapter<String> listAdapter;
     private ListView mainListView;
-    private Task<List<ParseObject>> object;
+    private List<ParseObject> object;
 
     private static final String REQUEST_STRING = "Events";
 
@@ -52,7 +44,7 @@ public class EventListFragment extends Fragment {
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ParseObject obj = object.getResult().get(position);
+                ParseObject obj = object.get(position);
                 String event = obj.getString("Name");
                 Bundle args = new Bundle();
                 args.putString("Event", event);
@@ -71,26 +63,22 @@ public class EventListFragment extends Fragment {
         return v;
     }
 
-    private void inflateEventList() {
+    private void inflateEventList(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
-        final ArrayList<String> events = new ArrayList<String>();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                for (ParseObject ob : list) {
-                    Event event = new Event();
-                    event.name = ob.getString("Name");
-                    event.location = ob.getString("location");
-                    event.id = ob.getObjectId();
-                    events.add(event.name);
-                }
-                listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
-                mainListView.setAdapter(listAdapter);
+        ArrayList<String> events = new ArrayList<String>();
+        try {
+            object = query.find();
+            for (ParseObject ob : object){
+                Event event = new Event();
+                event.name = ob.getString("Name");
+                event.location = ob.getString("location");
+                event.id = ob.getObjectId();
+                events.add(event.name);
             }
-        });
-        if (events.size() == 0){
-            TextView view = (TextView) getActivity().findViewById(R.id.rowTextView);
-            mainListView.setEmptyView(view);
+        }catch (com.parse.ParseException e){
+            e.printStackTrace();
+        }finally{
+            listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
         }
     }
 

@@ -39,6 +39,14 @@ public class EventListFragmentTest {
     public void testFragmentTitle() throws Exception {
         Fragment fragment = hostActivity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
         assertNotNull(fragment);
+
+        android.support.v4.app.FragmentManager fragmentManager = hostActivity.getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit();
+
+
         //String title = (String) hostActivity.getTitle();
         //assertEquals("Event List", title);
     }
