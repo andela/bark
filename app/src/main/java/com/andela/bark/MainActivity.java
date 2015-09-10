@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
-import com.google.android.gms.plus.model.people.Person;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
@@ -14,9 +13,6 @@ public class MainActivity extends Activity {
 
     private FacebookAuth facebookAuth;
     private GoogleAuth googleHandler;
-
-    /* Object used to hold logged in user info */
-    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
