@@ -70,7 +70,6 @@ public class EventListFragmentTest {
         setlistAdapter();
         Shadows.shadowOf(fragment.getMainListView()).performItemClick(0);
         assertNotNull(fragment);
-
     }
 
 
