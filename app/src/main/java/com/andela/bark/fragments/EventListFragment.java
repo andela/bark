@@ -1,5 +1,6 @@
 package com.andela.bark.fragments;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.widget.TextView;
 
 import com.andela.bark.R;
@@ -16,10 +17,12 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import bolts.Continuation;
 import bolts.Task;
 
 /**
@@ -28,7 +31,7 @@ import bolts.Task;
 public class EventListFragment extends Fragment {
     private ArrayAdapter<String> listAdapter;
     private ListView mainListView;
-    private Task<List<ParseObject>> object;
+    private List<ParseObject> object;
 
     private static final String REQUEST_STRING = "Events";
 
@@ -46,17 +49,17 @@ public class EventListFragment extends Fragment {
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
         mainListView.setAdapter(listAdapter);
+
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ParseObject obj = object.getResult().get(position);
-                String event = obj.getString("Name");
+                String item = parent.getAdapter().getItem(position).toString();
                 Bundle args = new Bundle();
-                args.putString("Event", event);
+                args.putString("Event", item);
 
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
                 eventDetailFragment.setArguments(args);
-                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
 
                 fragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainer, eventDetailFragment)
@@ -70,25 +73,33 @@ public class EventListFragment extends Fragment {
 
     private void inflateEventList() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
+
         final ArrayList<String> events = new ArrayList<String>();
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                for (ParseObject ob : list) {
-                    Event event = new Event();
-                    event.name = ob.getString("Name");
-                    event.location = ob.getString("location");
-                    event.id = ob.getObjectId();
-                    events.add(event.name);
+                if (list != null) {
+                    object = list;
+                    for (ParseObject ob : list) {
+                        Event event = new Event();
+                        event.name = ob.getString("Name");
+                        event.location = ob.getString("location");
+                        event.id = ob.getObjectId();
+                        events.add(event.name);
+                    }
+                    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
+                    mainListView.setAdapter(listAdapter);
                 }
-                listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
-                mainListView.setAdapter(listAdapter);
             }
         });
         if (events.size() == 0){
             TextView view = (TextView) getActivity().findViewById(R.id.rowTextView);
             mainListView.setEmptyView(view);
         }
+    }
+
+    public ListView getMainListView() {
+        return mainListView;
     }
 
     protected class Event {
