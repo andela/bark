@@ -38,15 +38,16 @@ import java.util.ArrayList;
 public class EventListFragmentTest {
     private Fragment EListFragment;
     private FragmentHostActivity hostActivity;
+    private EventListFragment fragment;
 
     @Before
     public void setUp() throws Exception {
        hostActivity = Robolectric.buildActivity(FragmentHostActivity.class).create().get();
+        fragment =(EventListFragment) hostActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer);
     }
 
     @Test
-    public void testFragmentTitle() throws Exception {
-        EventListFragment fragment =(EventListFragment) hostActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer);
+    public void testLisAdapter() throws Exception {
         FragmentTestUtil.startFragment(fragment);
         assertNotNull(fragment);
 
@@ -54,13 +55,11 @@ public class EventListFragmentTest {
         ListAdapter listAdapter = new ArrayAdapter<String>(hostActivity, R.layout.simplerow,list);
         fragment.getMainListView().setAdapter(listAdapter);
         assertEquals(2, fragment.getMainListView().getCount());
-        Shadows.shadowOf(fragment.getMainListView()).performItemClick(1);
-        assertEquals(hostActivity.getTitle(),"Event #2");
-//        assertThat
-//        Fragment detailFragment = hostActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer);
-//        assertThat(detailFragment).isNotNull();
+    }
 
-
+    @Test
+    public void testOnClickListener(){
+        assertTrue(fragment.getMainListView().getOnItemClickListener() != null);
     }
 
 
