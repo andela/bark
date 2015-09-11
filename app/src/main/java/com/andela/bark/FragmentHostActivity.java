@@ -1,9 +1,9 @@
 package com.andela.bark;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 
 import com.andela.bark.fragments.EventListFragment;
 
@@ -17,10 +17,9 @@ public class FragmentHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragmentcontainer);
         setUpFragment();
     }
-
     private void setUpFragment(){
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+        FragmentManager fm = getFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.listLayout);
 
         if (fragment == null){
             fragment = new EventListFragment();
