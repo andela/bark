@@ -3,4 +3,16 @@ xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical" an
 android:layout_height="match_parent" android:id="@+id/eventDetails"
 tools:context="com.andela.bark.fragments.EventDetailFragment">
 
+
+    <Button
+        android:id="@+id/manage_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Event" />
+
+    <Button
+        android:id="@+id/event_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dashboard"/>
 </LinearLayout>
