@@ -88,6 +88,10 @@ public class EventListFragment extends Fragment {
                 }
             }
         });
+        if (events.size() == 0){
+            TextView view = (TextView) getActivity().findViewById(R.id.rowTextView);
+            mainListView.setEmptyView(view);
+        }
     }
 
     public ListView getMainListView() {
