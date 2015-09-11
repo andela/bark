@@ -87,7 +87,15 @@ public class TicketVerificationFragment extends Fragment {
             public void done(List<ParseObject> list, ParseException e) {
                 if(e == null){
                     if(list.size() == 1){
-                        Toast.makeText(getActivity(), "Valid Ticket!", Toast.LENGTH_SHORT).show();
+                        ParseObject ticket = list.get(0);
+                        Boolean used = ticket.getBoolean("used");
+                        if(used){
+                            Toast.makeText(getActivity(), "Ticket Has Been Used!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getActivity(), "Valid Ticket!", Toast.LENGTH_SHORT).show();
+                            ticket.put("used",true);
+                            ticket.saveInBackground();
+                        }
                     }else{
                         Toast.makeText(getActivity(), "Ticket Not Valid", Toast.LENGTH_SHORT).show();
                     }
