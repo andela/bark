@@ -46,8 +46,12 @@ public class EventListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject obj = object.get(position);
                 String event = obj.getString("Name");
+                String eventId = obj.getObjectId();
+
+
                 Bundle args = new Bundle();
                 args.putString("Event", event);
+                args.putString("EventId", eventId);
 
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
                 eventDetailFragment.setArguments(args);

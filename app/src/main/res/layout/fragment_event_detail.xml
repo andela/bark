@@ -1,5 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andela.bark.fragments.EventDetailFragment">
-</FrameLayout>
+    tools:context="com.andela.bark.fragments.EventDetailFragment"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/manage_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Event" />
+
+    <Button
+        android:id="@+id/event_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dashboard"/>
+</LinearLayout>
