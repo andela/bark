@@ -43,8 +43,9 @@ public class EventListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_eventlist,container,false);
+        View v = inflater.inflate(R.layout.fragment_eventlist, container, false);
         getActivity().setTitle("Event List");
+
         // Find the ListView resource.
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
@@ -67,7 +68,6 @@ public class EventListFragment extends Fragment {
                         .commit();
             }
         });
-
         return v;
     }
 

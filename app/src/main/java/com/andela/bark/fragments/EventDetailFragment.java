@@ -1,6 +1,7 @@
 package com.andela.bark.fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,8 @@ public class EventDetailFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        getActivity().setContentView(R.layout.activity_fragmentcontainer);
         super.onCreate(savedInstanceState);
-        
     }
 
     @Override

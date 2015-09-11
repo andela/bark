@@ -17,10 +17,9 @@ public class FragmentHostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragmentcontainer);
         setUpFragment();
     }
-
     private void setUpFragment(){
         FragmentManager fm = getFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+        Fragment fragment = fm.findFragmentById(R.id.listLayout);
 
         if (fragment == null){
             fragment = new EventListFragment();

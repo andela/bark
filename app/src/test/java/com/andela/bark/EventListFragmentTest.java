@@ -5,6 +5,7 @@ import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -36,30 +37,40 @@ import java.util.ArrayList;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class EventListFragmentTest {
-    private Fragment EListFragment;
     private FragmentHostActivity hostActivity;
     private EventListFragment fragment;
 
     @Before
     public void setUp() throws Exception {
        hostActivity = Robolectric.buildActivity(FragmentHostActivity.class).create().get();
-        fragment =(EventListFragment) hostActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer);
+        fragment = (EventListFragment) hostActivity.getFragmentManager().findFragmentById(R.id.fragmentContainer);
+        FragmentTestUtil.startFragment(fragment);
     }
 
     @Test
     public void testLisAdapter() throws Exception {
-        FragmentTestUtil.startFragment(fragment);
         assertNotNull(fragment);
+        setlistAdapter();
+        assertEquals(2, fragment.getMainListView().getCount());
+    }
 
+    public void setlistAdapter(){
         String list[] = {"Event #0","Event#2"};
         ListAdapter listAdapter = new ArrayAdapter<String>(hostActivity, R.layout.simplerow,list);
         fragment.getMainListView().setAdapter(listAdapter);
-        assertEquals(2, fragment.getMainListView().getCount());
     }
 
     @Test
     public void testOnClickListener(){
         assertTrue(fragment.getMainListView().getOnItemClickListener() != null);
+    }
+
+    @Test
+    public void testTransitionOnItemClick(){
+        setlistAdapter();
+        Shadows.shadowOf(fragment.getMainListView()).performItemClick(0);
+        assertNotNull(fragment);
+
     }
 
 
