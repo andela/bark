@@ -8,11 +8,11 @@ tools:context="com.andela.bark.fragments.EventDetailFragment">
         android:id="@+id/manage_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Manage Event" />
+        android:text="@string/check_in_button_text" />
 
     <Button
         android:id="@+id/event_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dashboard"/>
+        android:text="@string/dashboard_button_text"/>
 </LinearLayout>

@@ -17,7 +17,7 @@ import com.andela.bark.R;
 
 public class EventDetailFragment extends Fragment {
 
-    private Button manageEventButton;
+    private Button checkInButton;
     private Button dashboardButton;
 
 
@@ -29,20 +29,15 @@ public class EventDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_event_detail, container, false);
         final Bundle args = getArguments();
         String event = args.getString("Text");
-        String eventId = args.getString("EventId");
 
         getActivity().setTitle(event);
-        //getActivity().setTitle(eventId);
-        //final Bundle args2 = new Bundle();
-        //args2.putString("EventId", eventId);
 
 
-        manageEventButton = (Button)v.findViewById(R.id.manage_event);
-        manageEventButton.setOnClickListener(new View.OnClickListener() {
+        checkInButton = (Button)v.findViewById(R.id.manage_event);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TicketVerificationFragment ticket = new TicketVerificationFragment();

@@ -6,4 +6,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ticket_number">Enter Ticket Number</string>
     <string name="verify_ticket_button">Verify Ticket</string>
+    <string name="check_in_button_text">Check In</string>
+    <string name="dashboard_button_text">Dashboard</string>
 </resources>
