@@ -3,6 +3,7 @@ package com.andela.bark;
 /**
  * Created by andela-cj on 8/26/15.
  */
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.andela.bark.authentication.FacebookAuth;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import  static org.junit.Assert.*;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static org.assertj.android.api.Assertions.assertThat;
@@ -34,7 +36,11 @@ public class ActivityTest {
     public void testImageViewContainsImage(){
         ImageView applogo =  (ImageView) landingActivity.findViewById(R.id.applogoImageView);
         assertThat(applogo).isNotNull();
-        assertThat(applogo.getDrawable()).isNotNull();
+        assertThat(applogo).isVisible();
+        Drawable logo = RuntimeEnvironment.application
+                .getApplicationContext()
+                .getResources().getDrawable(R.drawable.gatekeeper);
+        assertThat(applogo.getDrawable()).isEqualTo(logo);
     }
 
     @Test
