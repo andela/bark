@@ -18,12 +18,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import bolts.Task;
 
 /**
  * Created by andela on 8/31/15.
@@ -54,9 +50,17 @@ public class EventListFragment extends Fragment {
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 String item = parent.getAdapter().getItem(position).toString();
                 Bundle args = new Bundle();
-                args.putString("Event", item);
+                args.putString("Text", item);
+                if (object != null) {
+                    ParseObject obj = object.get(position);
+                    String event = obj.getString("Name");
+                    String eventId = obj.getObjectId();
+                    args.putString("Event", event);
+                    args.putString("EventId", eventId);
+                }
 
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
                 eventDetailFragment.setArguments(args);
@@ -71,9 +75,8 @@ public class EventListFragment extends Fragment {
         return v;
     }
 
-    private void inflateEventList() {
+    private void inflateEventList(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
-
         final ArrayList<String> events = new ArrayList<String>();
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

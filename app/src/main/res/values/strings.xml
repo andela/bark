@@ -4,4 +4,6 @@
     <string name="Logo">GateKeeper Logo</string>
     <string name="app_id">311398712317860</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ticket_number">Enter Ticket Number</string>
+    <string name="verify_ticket_button">Verify Ticket</string>
 </resources>
