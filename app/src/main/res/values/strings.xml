@@ -7,7 +7,7 @@
     <string name="ticket_number">Enter Ticket Number</string>
     <string name="verify_ticket_button">Verify Ticket</string>
     <string name="used_ticket_msg">Ticket Has Been Used</string>
-    <string name="valid_ticket-msg">Valid Ticket!</string>
+    <string name="valid_ticket_msg">Valid Ticket!</string>
     <string name="not_valid_ticket_msg">Ticket Not Valid</string>
     <string name="error">Error!</string>
 </resources>
