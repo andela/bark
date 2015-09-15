@@ -80,7 +80,6 @@ public class TicketVerificationFragment extends Fragment {
     public void validateTicketNumber(String ticketNumberInput){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
         query.whereEqualTo("ticketNumber", ticketNumberInput);
-        //query.whereEqualTo("Event", eventId);
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

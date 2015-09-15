@@ -42,7 +42,6 @@ public class EventListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_eventlist, container, false);
         getActivity().setTitle("Event List");
 
-        // Find the ListView resource.
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
         mainListView.setAdapter(listAdapter);
