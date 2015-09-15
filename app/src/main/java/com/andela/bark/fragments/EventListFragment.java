@@ -55,10 +55,8 @@ public class EventListFragment extends Fragment {
                 args.putString("Text", item);
                 if (object != null) {
                     ParseObject obj = object.get(position);
-                    String event = obj.getString("Name");
-                    String eventId = obj.getObjectId();
-                    args.putString("Event", event);
-                    args.putString("EventId", eventId);
+                    args.putString("Event", obj.getString("Name"));
+                    args.putString("EventId", obj.getObjectId());
                 }
 
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();

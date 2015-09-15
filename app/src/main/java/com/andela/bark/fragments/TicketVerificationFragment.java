@@ -89,18 +89,18 @@ public class TicketVerificationFragment extends Fragment {
                         ParseObject ticket = list.get(0);
                         Boolean used = ticket.getBoolean("used");
                         if(used){
-                            Toast.makeText(getActivity(), "Ticket Has Been Used!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.used_ticket_msg, Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(getActivity(), "Valid Ticket!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.valid_ticket_msg, Toast.LENGTH_SHORT).show();
                             ticket.put("used",true);
                             ticket.saveInBackground();
                         }
                     }else{
-                        Toast.makeText(getActivity(), "Ticket Not Valid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.not_valid_ticket_msg, Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Log.d("Error Message", e.getMessage());
-                    Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
             }
         });
