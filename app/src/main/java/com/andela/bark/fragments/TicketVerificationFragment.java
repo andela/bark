@@ -97,7 +97,6 @@ public class TicketVerificationFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.not_valid_ticket_msg, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Log.d("Error Message", e.getMessage());
                     Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
             }

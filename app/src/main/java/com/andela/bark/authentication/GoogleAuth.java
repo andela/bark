@@ -47,9 +47,8 @@ public class GoogleAuth implements
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("MainActivity", "onConnected:" + bundle);
-        mShouldResolve = false;
 
+        mShouldResolve = false;
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
         Intent i  = new Intent(myActivity, FragmentHostActivity.class);
         myActivity.startActivity(i);
@@ -62,8 +61,6 @@ public class GoogleAuth implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
-        Log.d("MainActivity", "onConnectionFailed:" + connectionResult);
 
         if (!mIsResolving && mShouldResolve) {
             if (connectionResult.hasResolution()) {
@@ -102,7 +99,6 @@ public class GoogleAuth implements
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("MainActivity", "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
 
         if (requestCode == RC_SIGN_IN) {
             if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false;
