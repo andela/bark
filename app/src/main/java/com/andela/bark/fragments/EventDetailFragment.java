@@ -31,7 +31,7 @@ public class EventDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_event_detail, container, false);
         final Bundle args = getArguments();
-        String event = args.getString("Text");
+        String event = args.getString("Event");
         String eventId = args.getString("EventId");
 
         getActivity().setTitle(event);

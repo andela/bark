@@ -45,8 +45,6 @@ public class TicketVerificationFragment extends Fragment {
 
         eventId = args.getString("EventId");
 
-
-
         ticketNumber = (EditText)v.findViewById(R.id.ticket_number_field);
         ticketNumber.addTextChangedListener(new TextWatcher() {
             @Override

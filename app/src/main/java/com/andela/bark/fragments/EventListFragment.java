@@ -52,7 +52,7 @@ public class EventListFragment extends Fragment {
 
                 String item = parent.getAdapter().getItem(position).toString();
                 Bundle args = new Bundle();
-                args.putString("Text", item);
+                args.putString("Event", item);
                 if (object != null) {
                     ParseObject obj = object.get(position);
                     args.putString("Event", obj.getString("Name"));
