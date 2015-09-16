@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Bark</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="Logo">GateKeeper Logo</string>
+    <string name="app_id">311398712317860</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ticket_number">Enter Ticket Number</string>
+    <string name="verify_ticket_button">Verify Ticket</string>
+    <string name="used_ticket_msg">Ticket Has Been Used</string>
+    <string name="valid_ticket_msg">Valid Ticket!</string>
+    <string name="not_valid_ticket_msg">Ticket Not Valid</string>
+    <string name="error">Error!</string>
 </resources>

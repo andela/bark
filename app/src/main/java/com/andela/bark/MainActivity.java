@@ -1,38 +1,72 @@
 package com.andela.bark;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.andela.bark.authentication.FacebookAuth;
+import com.andela.bark.authentication.GoogleAuth;
+import com.google.android.gms.plus.model.people.Person;
+import com.parse.Parse;
+import com.parse.ParseInstallation;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    private FacebookAuth facebookAuth;
+    private GoogleAuth googleHandler;
+
+    /* Object used to hold logged in user info */
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        facebookAuth = new FacebookAuth(this);
+
+        facebookAuth.setupFacebookAuth(this);
+        facebookAuth.setCallbackManager();
+        facebookAuth.trackers();
+
         setContentView(R.layout.activity_main);
-    }
+        facebookAuth.loginButton(this);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        googleHandler = new GoogleAuth(this);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        try {
+            Parse.initialize(this, getResources().getString(R.string.cid), getResources().getString(R.string.aid));
+            ParseInstallation.getCurrentInstallation().saveInBackground();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        facebookAuth.logOut();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        facebookAuth.onActivityResult(requestCode, resultCode, data);
+        googleHandler.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        googleHandler.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        googleHandler.disconnect();
+        facebookAuth.logOut();
+    }
+
 }
