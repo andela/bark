@@ -52,6 +52,8 @@ public class EventListFragmentTest {
         assertNotNull(fragment);
         setlistAdapter();
         assertEquals(2, fragment.getMainListView().getCount());
+        assertTrue(fragment.isAdded());
+
     }
 
     public void setlistAdapter(){
@@ -69,7 +71,7 @@ public class EventListFragmentTest {
     public void testTransitionOnItemClick(){
         setlistAdapter();
         Shadows.shadowOf(fragment.getMainListView()).performItemClick(0);
-        assertNotNull(fragment);
+        assertFalse(fragment.isAdded());
     }
 
 

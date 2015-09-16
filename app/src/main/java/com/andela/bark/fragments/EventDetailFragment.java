@@ -35,6 +35,7 @@ public class EventDetailFragment extends Fragment {
         String eventId = args.getString("EventId");
 
         getActivity().setTitle(event);
+
         manageEventButton = (Button)v.findViewById(R.id.manage_event);
         manageEventButton.setOnClickListener(new View.OnClickListener() {
             @Override

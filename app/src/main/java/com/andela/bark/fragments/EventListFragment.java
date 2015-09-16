@@ -87,7 +87,7 @@ public class EventListFragment extends Fragment {
                         event.id = ob.getObjectId();
                         events.add(event.name);
                     }
-                    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
+                    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events);
                     mainListView.setAdapter(listAdapter);
                 }
             }
