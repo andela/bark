@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         googleHandler = new GoogleAuth(this);
 
         try {
-            Parse.initialize(this, "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
+            Parse.initialize(this, getResources().getString(R.string.cid), getResources().getString(R.string.aid));
             ParseInstallation.getCurrentInstallation().saveInBackground();
         } catch (Exception e) {
             e.printStackTrace();
