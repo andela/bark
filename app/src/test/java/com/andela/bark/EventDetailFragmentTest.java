@@ -33,15 +33,14 @@ public class EventDetailFragmentTest {
     @Before
     public void setUp() throws Exception {
         Bundle args = new Bundle();
-        args.putString("Text","Event #0");
+        args.putString("Event","Event #0");
         hostActivity = Robolectric.buildActivity(FragmentHostActivity.class).create().get();
         fragment = new EventDetailFragment();
         fragment.setArguments(args);
 
-        FragmentManager fragmentManager = hostActivity.getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
-        fragmentTransaction.commit();
+        hostActivity.getFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
     }
 
 
