@@ -14,6 +14,7 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 /**
  * Created by andela-cj on 8/31/15.
@@ -27,6 +28,7 @@ public class GoogleAuth implements
     private GoogleApiClient mGoogleApiClient;
     private boolean mIsResolving = false;
     private boolean mShouldResolve = false;
+    private Person person;
 
     private Activity myActivity;
 
@@ -49,6 +51,7 @@ public class GoogleAuth implements
     public void onConnected(Bundle bundle) {
 
         mShouldResolve = false;
+        this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
         Intent i  = new Intent(myActivity, FragmentHostActivity.class);
         myActivity.startActivity(i);

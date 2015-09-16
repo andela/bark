@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.andela.bark.models.Event;
 
 /**
  * Created by andela on 8/31/15.
@@ -82,10 +83,10 @@ public class EventListFragment extends Fragment {
                     object = list;
                     for (ParseObject ob : list) {
                         Event event = new Event();
-                        event.name = ob.getString("Name");
-                        event.location = ob.getString("location");
-                        event.id = ob.getObjectId();
-                        events.add(event.name);
+                        event.setName(ob.getString("Name"));
+                        event.setLocation(ob.getString("location"));
+                        event.setId(ob.getObjectId());
+                        events.add(event.getName());
                     }
                     listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events);
                     mainListView.setAdapter(listAdapter);
@@ -102,9 +103,4 @@ public class EventListFragment extends Fragment {
         return mainListView;
     }
 
-    protected class Event {
-        String name;
-        String id;
-        String location;
-    }
 }
