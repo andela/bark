@@ -99,7 +99,7 @@ public class GoogleAuth implements
         ParseObject user = new ParseObject("Users");
         user.put("FirstName", this.person.getName().getGivenName());
         user.put("LastName", this.person.getName().getFamilyName());
-        user.put("emailAddress", "");
+        user.put("emailAddress", Plus.AccountApi.getAccountName(mGoogleApiClient));
         user.put("role", role);
         user.put("userID", this.person.getId());
         user.saveInBackground();
