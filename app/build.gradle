@@ -35,4 +35,5 @@ dependencies {
     testCompile 'com.squareup.assertj:assertj-android:1.1.0'
     testCompile 'org.robolectric:robolectric:3.0'
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
+    compile 'me.dm7.barcodescanner:zxing:1.8.2'
 }

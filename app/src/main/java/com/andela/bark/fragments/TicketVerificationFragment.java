@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.andela.bark.R;
+import com.google.zxing.Result;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -23,10 +24,16 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class TicketVerificationFragment extends Fragment {
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+public class TicketVerificationFragment extends Fragment implements ZXingScannerView.ResultHandler{
+
+    private ZXingScannerView mScannerView;
 
     private EditText ticketNumber;
     private Button submitTicketNumber;
+    private Button scanBarcode;
+
     private String ticketNumberInput;
     private String eventId;
 
@@ -44,8 +51,6 @@ public class TicketVerificationFragment extends Fragment {
         getActivity().setTitle(eventName);
 
         eventId = args.getString("EventId");
-
-
 
         ticketNumber = (EditText)v.findViewById(R.id.ticket_number_field);
         ticketNumber.addTextChangedListener(new TextWatcher() {
@@ -67,43 +72,77 @@ public class TicketVerificationFragment extends Fragment {
 
         submitTicketNumber = (Button)v.findViewById(R.id.submit_ticket_number);
 
+
         submitTicketNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  validateTicketNumber(ticketNumberInput);
+                validateTicketNumber(ticketNumberInput);
             }
         });
+
+        scanBarcode = (Button)v.findViewById(R.id.scan_button);
+        scanBarcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBarcodeScanner();
+            }
+        });
+
+        mScannerView = new ZXingScannerView(getActivity());
 
         return v;
     }
 
     public void validateTicketNumber(String ticketNumberInput){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
-        query.whereEqualTo("Event", eventId).whereEqualTo("ticketNumber", ticketNumberInput);
-        //query.whereEqualTo("ticketNumber", ticketNumberInput);
+        //query.whereEqualTo("Event", eventId);
+        query.whereEqualTo("ticketNumber", ticketNumberInput);
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e == null){
-                    if(list.size() == 1){
+                if (e == null) {
+                    if (list.size() == 1) {
                         ParseObject ticket = list.get(0);
                         Boolean used = ticket.getBoolean("used");
-                        if(used){
+                        if (used) {
                             Toast.makeText(getActivity(), "Ticket Has Been Used!", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(getActivity(), "Valid Ticket!", Toast.LENGTH_SHORT).show();
-                            ticket.put("used",true);
+                            ticket.put("used", true);
                             ticket.saveInBackground();
                         }
-                    }else{
+                    } else {
                         Toast.makeText(getActivity(), "Ticket Not Valid", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Log.d("Error Message", e.getMessage());
                     Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void showBarcodeScanner(){
+        getActivity().setContentView(mScannerView);
+    }
+
+    @Override
+    public void handleResult(Result rawResult) {
+        Toast.makeText(getActivity(), rawResult.getText(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mScannerView.setResultHandler(this);
+        mScannerView.startCamera();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();
     }
 }
