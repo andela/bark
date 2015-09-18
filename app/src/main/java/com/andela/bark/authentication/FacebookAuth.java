@@ -3,9 +3,12 @@ package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.GKprManger;
 import com.andela.bark.R;
+import com.andela.bark.models.User;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -17,6 +20,12 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
 
 /**
  * Created by Jibola on 8/31/15.
@@ -40,6 +49,8 @@ public class FacebookAuth {
             userProfile = Profile.getCurrentProfile();
 
             if(userProfile != null){
+                User user = User.createFacebookUser(userProfile);
+                GKprManger gKprManger = new GKprManger(user);
                 Intent i  = new Intent(activity, FragmentHostActivity.class);
                 activity.startActivity(i);
             }
@@ -55,8 +66,6 @@ public class FacebookAuth {
 
         }
     };
-
-
 
 
     public void setupFacebookAuth(Activity activity){

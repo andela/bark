@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.GKprManger;
 import com.andela.bark.R;
+import com.andela.bark.models.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,53 +59,13 @@ public class GoogleAuth implements
 
         mShouldResolve = false;
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-        getUserRoles();
+        User user = User.createGoogleUser(person);
+        GKprManger kprManger = new GKprManger(user);
         Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
         Intent i  = new Intent(myActivity, FragmentHostActivity.class);
         myActivity.startActivity(i);
     }
 
-    public void getUserRoles() {
-        ParseQuery<ParseObject> rolesQuery = ParseQuery.getQuery("Privilege");
-        rolesQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    if (list.size() > 0) {
-                        authenticate(list.get(0));
-                    }
-                }
-            }
-        });
-    }
-
-    public void authenticate(final ParseObject role) {
-        String userId = this.person.getId();
-        ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery("Users");
-        usersQuery.whereEqualTo("userID", userId);
-        usersQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    if (list.size() == 0) {
-                        createUser(role);
-                    }
-                } else {
-                    Log.d("User query error", "An error occurred");
-                }
-            }
-        });
-    }
-
-    public void createUser(ParseObject role) {
-        ParseObject user = new ParseObject("Users");
-        user.put("FirstName", this.person.getName().getGivenName());
-        user.put("LastName", this.person.getName().getFamilyName());
-        user.put("emailAddress", Plus.AccountApi.getAccountName(mGoogleApiClient));
-        user.put("role", role);
-        user.put("userID", this.person.getId());
-        user.saveInBackground();
-    }
 
     @Override
     public void onConnectionSuspended(int i) {

@@ -1,5 +1,8 @@
 package com.andela.bark.models;
 
+import com.facebook.Profile;
+import com.google.android.gms.plus.model.people.Person;
+
 /**
  * Created by Andela on 9/17/15.
  */
@@ -58,5 +61,20 @@ public class User {
 
     public String getRole() {
         return this.role;
+    }
+
+    public static User createFacebookUser(Profile userProfile) {
+        User user = new User();
+        user.setFirstName(userProfile.getFirstName());
+        user.setLastName(userProfile.getLastName());
+        user.setUserID(userProfile.getId());
+        return user;
+    }
+    public static User createGoogleUser(Person person) {
+        User user = new User();
+        user.setFirstName(person.getName().getGivenName());
+        user.setLastName(person.getName().getFamilyName());
+        user.setUserID(person.getId());
+        return user;
     }
 }
