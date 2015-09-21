@@ -15,20 +15,24 @@ import java.util.List;
  * Created by andela-cj on 9/18/15.
  */
 public class GKprManger {
-    User keeper;
+    private User keeper;
+    private Role GKprRole;
+    public boolean isAuthenticated;
+
     public GKprManger (User keep){
+        isAuthenticated = false;
         keeper = keep;
         getUserRoles();
     }
 
-    public void setKeeper(User keeper){
+    public void setKeeper (User keeper){
         this.keeper = keeper;
         getUserRoles();
     }
 
     public void authenticate(final ParseObject role) {
         ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery("Users");
-        usersQuery.whereEqualTo("userID", keeper);
+        usersQuery.whereEqualTo("userID", keeper.getUserID());
         usersQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -36,7 +40,11 @@ public class GKprManger {
                     if (list.size() == 0) {
                         createUser(role);
                     } else {
-                        // store user in bundle state
+                        ParseObject user = list.remove(0);
+                        ParseObject role = user.getParseObject("role");
+                        if (GKprRole.validateRole(role.getString("name"))!= null){
+                             isAuthenticated = true;
+                        }
                     }
                 } else {
                     Log.d("User query error", "An error occurred");
@@ -68,11 +76,30 @@ public class GKprManger {
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e==null){
+                if (e == null) {
                     keeper.setRole(role.getString("name"));
                 }
             }
         });
     }
 
+
+
+    private enum Role{
+        Admin, Manager, GateKeeper;
+        Role role;
+        public Role validateRole(String role){
+            switch (role){
+                case "Admin":
+                    this.role = Admin; break;
+                case "Manager":
+                    this.role = Manager; break;
+                case "keeper":
+                    this.role = GateKeeper;
+                    break;
+                default: this.role = null; break;
+            }
+            return this.role;
+        }
+    }
 }

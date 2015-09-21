@@ -51,8 +51,10 @@ public class FacebookAuth {
             if(userProfile != null){
                 User user = User.createFacebookUser(userProfile);
                 GKprManger gKprManger = new GKprManger(user);
-                Intent i  = new Intent(activity, FragmentHostActivity.class);
-                activity.startActivity(i);
+                if (gKprManger.isAuthenticated){
+                    Intent i  = new Intent(activity, FragmentHostActivity.class);
+                    activity.startActivity(i);
+                }
             }
         }
 

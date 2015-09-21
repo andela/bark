@@ -61,9 +61,11 @@ public class GoogleAuth implements
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         User user = User.createGoogleUser(person);
         GKprManger kprManger = new GKprManger(user);
-        Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
-        Intent i  = new Intent(myActivity, FragmentHostActivity.class);
-        myActivity.startActivity(i);
+        if(kprManger.isAuthenticated){
+            Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
+            Intent i  = new Intent(myActivity, FragmentHostActivity.class);
+            myActivity.startActivity(i);
+        }
     }
 
 
