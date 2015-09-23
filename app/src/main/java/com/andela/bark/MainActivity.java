@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
+import com.andela.bark.models.Events;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 
 
 public class MainActivity extends Activity {
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
         googleHandler = new GoogleAuth(this);
 
         try {
+            ParseObject.registerSubclass(Events.class);
             Parse.initialize(this, getResources().getString(R.string.cid), getResources().getString(R.string.aid));
             ParseInstallation.getCurrentInstallation().saveInBackground();
         } catch (Exception e) {
