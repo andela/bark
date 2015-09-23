@@ -11,16 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.app.Fragment;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andela.bark.R;
+import com.andela.bark.models.Events;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.andela.bark.models.Event;
 
 /**
  * Created by andela on 8/31/15.
@@ -43,7 +45,7 @@ public class EventListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_eventlist, container, false);
         getActivity().setTitle("Event List");
 
-        mainListView = (ListView) v.findViewById( R.id.mainListView );
+        mainListView = (ListView) v.findViewById(R.id.mainListView);
         inflateEventList();
         mainListView.setAdapter(listAdapter);
 
@@ -73,27 +75,23 @@ public class EventListFragment extends Fragment {
         return v;
     }
 
-    private void inflateEventList(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(REQUEST_STRING);
-        final ArrayList<String> events = new ArrayList<String>();
-        query.findInBackground(new FindCallback<ParseObject>() {
+    private void inflateEventList() {
+        ParseQuery<Events> query = ParseQuery.getQuery(Events.class);
+        final ArrayList<String> eventsList = new ArrayList<String>();
+        query.findInBackground(new FindCallback<Events>() {
             @Override
-            public void done(List<ParseObject> list, ParseException e) {
+            public void done(List<Events> list, ParseException e) {
                 if (list != null) {
-                    object = list;
-                    for (ParseObject ob : list) {
-                        Event event = new Event();
-                        event.setName(ob.getString("Name"));
-                        event.setLocation(ob.getString("location"));
-                        event.setId(ob.getObjectId());
-                        events.add(event.getName());
+                    for (Events event : list) {
+                        eventsList.add(event.getName());
                     }
-                    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events);
-                    mainListView.setAdapter(listAdapter);
                 }
+                listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, eventsList);
+                mainListView.setAdapter(listAdapter);
             }
-        });
-        if (events.size() == 0){
+     });
+
+        if (eventsList.size() == 0) {
             TextView view = (TextView) getActivity().findViewById(R.id.rowTextView);
             mainListView.setEmptyView(view);
         }
