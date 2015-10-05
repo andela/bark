@@ -3,9 +3,10 @@ package com.andela.bark.authentication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.andela.bark.FragmentHostActivity;
-import com.andela.bark.R;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -16,33 +17,28 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 /**
  * Created by Jibola on 8/31/15.
  */
 public class FacebookAuth {
 
+    private Profile profile;
     private Activity activity;
-    private Profile userProfile;
-    private AccessToken accessToken;
-    private CallbackManager mCallbackManager;
-
-    public FacebookAuth(Activity a){
-        activity = a;
+    public FacebookAuth(Activity activity){
+        this.activity = activity;
     }
 
+    private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
 
         @Override
         public void onSuccess(LoginResult loginResult) {
-            accessToken = loginResult.getAccessToken();
-            userProfile = Profile.getCurrentProfile();
-
-            if(userProfile != null){
-                Intent i  = new Intent(activity, FragmentHostActivity.class);
-                activity.startActivity(i);
-            }
+            AccessToken accessToken = loginResult.getAccessToken();
+            profile = Profile.getCurrentProfile();
+            Intent i  = new Intent(activity, FragmentHostActivity.class);
+            activity.startActivity(i);
+            displayWelcomeMessage(profile);
         }
 
         @Override
@@ -55,54 +51,62 @@ public class FacebookAuth {
 
         }
     };
+    private AccessTokenTracker tracker;
+    private ProfileTracker profileTracker;
 
+    public void displayWelcomeMessage(Profile profile){
+        if(profile != null){
+            Toast.makeText(activity.getApplicationContext(), "Welcome " + profile.getName(), Toast.LENGTH_LONG).show();
+            Log.i("profileid", profile.getId());
+        }
+        else{
+            Toast.makeText(activity.getApplicationContext(), "Problem with login ", Toast.LENGTH_LONG).show();
 
-
-
-    public void setupFacebookAuth(Activity activity){
-        FacebookSdk.sdkInitialize(activity.getApplicationContext());
+        }
     }
 
-    public void trackers(){
-        AccessTokenTracker tracker = new AccessTokenTracker() {
+    public void stuffInsideoncreate(){
+        FacebookSdk.sdkInitialize(activity.getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+        tracker = new AccessTokenTracker() {
             @Override
-            protected void onCurrentAccessTokenChanged(AccessToken accessToken, AccessToken accessToken1) {
+            protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
 
             }
         };
-
-        ProfileTracker profileTracker = new ProfileTracker() {
+        profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
+                displayWelcomeMessage(newProfile);
             }
         };
-
         tracker.startTracking();
         profileTracker.startTracking();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    public CallbackManager getmCallbackManager(){
+        return mCallbackManager;
     }
 
-    public void loginButton(Activity activity){
-        LoginButton loginButton = (LoginButton)activity.findViewById(R.id.login_button);
-        loginButton.registerCallback(mCallbackManager, mCallback);
+    public FacebookCallback<LoginResult> getmCallback(){
+        return mCallback;
     }
 
-    public void setCallbackManager(){
-        mCallbackManager = CallbackManager.Factory.create();
+    public AccessTokenTracker getTracker(){
+        return tracker;
+    }
+
+    public ProfileTracker getProfileTracker(){
+        return profileTracker;
+    }
+
+    public Profile getProfile(){
+        return profile;
     }
 
     public void logOut(){
         LoginManager.getInstance().logOut();
     }
 
-    public Profile userProfile(){
-        return userProfile;
-    }
 
-    public AccessToken getAccessToken(){
-        return accessToken;
-    }
 }

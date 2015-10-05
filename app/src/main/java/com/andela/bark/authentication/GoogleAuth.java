@@ -46,7 +46,7 @@ public class GoogleAuth implements
                 .build();
 
 
-        activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
+        myActivity.findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 
 
