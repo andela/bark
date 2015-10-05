@@ -57,7 +57,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        googleHandler.connect();
 
     }
 
@@ -66,4 +65,5 @@ public class MainActivity extends Activity {
         super.onStop();
         googleHandler.disconnect();
     }
+
 }

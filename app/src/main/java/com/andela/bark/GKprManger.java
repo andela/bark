@@ -40,31 +40,27 @@ public class GKprManger {
         usersQuery.whereEqualTo("userID", keeper.getUserID()).include("role");
 
         dialog.setMessage("Fetching...");
-        dialog.show();
-        usersQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (dialog.isShowing()) dialog.dismiss();
+        try {
+            dialog.show();
+            List<ParseObject> list = usersQuery.find();
+            if (dialog.isShowing()) dialog.dismiss();
 
-                if (e == null) {
-                    if (list.size() == 0) {
-                        createUser(role);
-                    } else {
-                        ParseObject user = list.remove(0);
-                        ParseObject role = user.getParseObject("role");
-                        if (GKprRole.validateRole(role.getString("name"))!= null){
-                             isAuthenticated = true;
-                        }
-                    }
-                } else {
-                    Log.d("User query error", "An error occurred");
+            if (list!= null && list.size() == 0) {
+                createUser(role);
+                isAuthenticated = true;
+            } else {
+                ParseObject user = list.remove(0);
+                ParseObject userRole = user.getParseObject("role");
+                if ((GKprRole = validateRole(userRole.getString("name"))) != null) {
+                    isAuthenticated = true;
                 }
             }
-        });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getUserRoles() {
-
 
         ParseQuery<ParseObject> rolesQuery = ParseQuery.getQuery("Privilege");
         try {
@@ -73,16 +69,6 @@ public class GKprManger {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//        rolesQuery.findInBackground(new FindCallback<ParseObject>() {
-//            @Override
-//            public void done(List<ParseObject> list, ParseException e) {
-//                if (e == null) {
-//                    if (list.size() > 0) {
-//                        authenticate(list.get(0));
-//                    }
-//                }
-//            }
-//        });
     }
 
     public void createUser(final ParseObject role) {
@@ -102,22 +88,22 @@ public class GKprManger {
     }
 
 
+    public Role validateRole(String role){
+        Role eRole;
+        switch (role){
+            case "Admin":
+                eRole = Role.Admin; break;
+            case "Manager":
+                eRole = Role.Manager; break;
+            case "keeper":
+                eRole = Role.GateKeeper;
+                break;
+            default: eRole = null; break;
+        }
+        return eRole;
+    }
 
     private enum Role{
         Admin, Manager, GateKeeper;
-        Role role;
-        public Role validateRole(String role){
-            switch (role){
-                case "Admin":
-                    this.role = Admin; break;
-                case "Manager":
-                    this.role = Manager; break;
-                case "keeper":
-                    this.role = GateKeeper;
-                    break;
-                default: this.role = null; break;
-            }
-            return this.role;
-        }
     }
 }

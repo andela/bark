@@ -20,7 +20,6 @@ import com.google.android.gms.common.api.PendingResults;
 import com.google.android.gms.common.api.Result;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.location.places.personalized.PlaceUserData;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
@@ -66,7 +65,6 @@ public class GoogleAuth implements
 
     @Override
     public void onConnected(Bundle bundle) {
-
         mShouldResolve = false;
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         if (person != null){
@@ -133,10 +131,17 @@ public class GoogleAuth implements
         }
     }
 
-    public void connect(){
+    public void connect() {
         mGoogleApiClient.connect();
     }
 
+    public void clear(){
+        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+    }
+
+    public boolean isConnected(){
+        return mGoogleApiClient.isConnected();
+    }
     public void disconnect(){
         mGoogleApiClient.disconnect();
     }
