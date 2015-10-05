@@ -41,31 +41,29 @@ public class MainActivity extends Activity {
 
     }
 
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        facebookAuth.logOut();
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         facebookAuth.onActivityResult(requestCode, resultCode, data);
         googleHandler.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         googleHandler.connect();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         googleHandler.disconnect();
-        facebookAuth.logOut();
     }
-
 }

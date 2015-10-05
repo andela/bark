@@ -1,5 +1,7 @@
 package com.andela.bark;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.util.Log;
 
 import com.andela.bark.models.User;
@@ -18,8 +20,10 @@ public class GKprManger {
     private User keeper;
     private Role GKprRole;
     public boolean isAuthenticated;
+    private Activity activity;
 
-    public GKprManger (User keep){
+    public GKprManger (User keep, Activity activity){
+        this.activity = activity;
         isAuthenticated = false;
         keeper = keep;
         getUserRoles();
@@ -31,11 +35,17 @@ public class GKprManger {
     }
 
     public void authenticate(final ParseObject role) {
+        final ProgressDialog dialog = new ProgressDialog(activity);
         ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery("Users");
-        usersQuery.whereEqualTo("userID", keeper.getUserID());
+        usersQuery.whereEqualTo("userID", keeper.getUserID()).include("role");
+
+        dialog.setMessage("Fetching...");
+        dialog.show();
         usersQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                if (dialog.isShowing()) dialog.dismiss();
+
                 if (e == null) {
                     if (list.size() == 0) {
                         createUser(role);
@@ -54,17 +64,25 @@ public class GKprManger {
     }
 
     public void getUserRoles() {
+
+
         ParseQuery<ParseObject> rolesQuery = ParseQuery.getQuery("Privilege");
-        rolesQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
-                    if (list.size() > 0) {
-                        authenticate(list.get(0));
-                    }
-                }
-            }
-        });
+        try {
+            List<ParseObject> list = rolesQuery.find();
+            authenticate(list.get(0));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//        rolesQuery.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> list, ParseException e) {
+//                if (e == null) {
+//                    if (list.size() > 0) {
+//                        authenticate(list.get(0));
+//                    }
+//                }
+//            }
+//        });
     }
 
     public void createUser(final ParseObject role) {

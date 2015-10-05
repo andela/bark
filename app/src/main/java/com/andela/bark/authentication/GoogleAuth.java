@@ -13,8 +13,15 @@ import com.andela.bark.R;
 import com.andela.bark.models.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.PendingResults;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.location.places.personalized.PlaceUserData;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.parse.FindCallback;
@@ -30,7 +37,7 @@ import java.util.List;
 public class GoogleAuth implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        View.OnClickListener {
+        View.OnClickListener{
 
     private static final int RC_SIGN_IN = 0;
     private GoogleApiClient mGoogleApiClient;
@@ -47,10 +54,13 @@ public class GoogleAuth implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN)
                 .addScope(new Scope(Scopes.PROFILE))
+                .addScope(new Scope(Scopes.PLUS_ME))
                 .build();
 
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
+        ((SignInButton)activity.findViewById(R.id.sign_in_button)).setSize(SignInButton.SIZE_WIDE);
     }
 
 
@@ -59,19 +69,20 @@ public class GoogleAuth implements
 
         mShouldResolve = false;
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-        User user = User.createGoogleUser(person);
-        GKprManger kprManger = new GKprManger(user);
-        if(kprManger.isAuthenticated){
-            Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
-            Intent i  = new Intent(myActivity, FragmentHostActivity.class);
-            myActivity.startActivity(i);
+        if (person != null){
+            User user = User.createGoogleUser(person);
+            GKprManger kprManger = new GKprManger(user, myActivity);
+            if(kprManger.isAuthenticated){
+                Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
+                Intent i  = new Intent(myActivity, FragmentHostActivity.class);
+                myActivity.startActivity(i);
+            }
         }
     }
 
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
@@ -88,7 +99,6 @@ public class GoogleAuth implements
                     mGoogleApiClient.connect();
                 }
             } else {
-
                 Toast.makeText(myActivity, "Connection could not be resolved", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -99,8 +109,7 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-            Intent i  = new Intent(myActivity, FragmentHostActivity.class);
-            myActivity.startActivity(i);
+            onSignInClicked();
         }
     }
 
@@ -108,7 +117,6 @@ public class GoogleAuth implements
 
         mShouldResolve = true;
         mGoogleApiClient.connect();
-
         Toast.makeText(myActivity, "Signing in", Toast.LENGTH_LONG).show();
     }
 
@@ -116,7 +124,8 @@ public class GoogleAuth implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode != myActivity.RESULT_OK) { mShouldResolve = false;
+            if (resultCode != myActivity.RESULT_OK) {
+                mShouldResolve = false;
             }
 
             mIsResolving = false;
@@ -131,4 +140,5 @@ public class GoogleAuth implements
     public void disconnect(){
         mGoogleApiClient.disconnect();
     }
+
 }

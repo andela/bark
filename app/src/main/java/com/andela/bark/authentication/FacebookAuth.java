@@ -41,6 +41,13 @@ public class FacebookAuth {
         activity = a;
     }
 
+    public void setup(){
+        setupFacebookAuth(activity);
+        setCallbackManager();
+        trackers();
+        loginButton(activity);
+    }
+
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
 
         @Override
@@ -50,7 +57,7 @@ public class FacebookAuth {
 
             if(userProfile != null){
                 User user = User.createFacebookUser(userProfile);
-                GKprManger gKprManger = new GKprManger(user);
+                GKprManger gKprManger = new GKprManger(user, activity);
                 if (gKprManger.isAuthenticated){
                     Intent i  = new Intent(activity, FragmentHostActivity.class);
                     activity.startActivity(i);
