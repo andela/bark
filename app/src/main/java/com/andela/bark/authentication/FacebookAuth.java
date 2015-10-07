@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.GateKeeperManager;
+import com.andela.bark.models.User;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -39,6 +41,7 @@ public class FacebookAuth {
                 Intent i  = new Intent(activity, FragmentHostActivity.class);
                 activity.startActivity(i);
                 displayWelcomeMessage(profile);
+
         }
 
         @Override
@@ -56,8 +59,14 @@ public class FacebookAuth {
 
     public void displayWelcomeMessage(Profile profile){
         if(profile != null){
-            Toast.makeText(activity.getApplicationContext(), "Welcome " + profile.getName(), Toast.LENGTH_LONG).show();
+            User user = User.createFacebookUser(profile);
+            GateKeeperManager kprManger = new GateKeeperManager(user, activity);
+            if(kprManger.isAuthenticated){
+                Intent i  = new Intent(activity, FragmentHostActivity.class);
+                activity.startActivity(i);
+            }            Toast.makeText(activity.getApplicationContext(), "Welcome " + profile.getName(), Toast.LENGTH_LONG).show();
             Log.i("profileid", profile.getId());
+
         }
         else{
             Toast.makeText(activity.getApplicationContext(), "Problem with login ", Toast.LENGTH_LONG).show();

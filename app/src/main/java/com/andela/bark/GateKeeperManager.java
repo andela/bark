@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Created by andela-cj on 9/18/15.
  */
-public class GKprManager {
+public class GateKeeperManager {
     private User keeper;
     private Role GKprRole;
     public boolean isAuthenticated;
     private Activity activity;
 
-    public GKprManager (User keep, Activity activity){
+    public GateKeeperManager(User keep, Activity activity){
         this.activity = activity;
         isAuthenticated = false;
         keeper = keep;
@@ -35,7 +35,7 @@ public class GKprManager {
     }
 
     public void authenticate(final ParseObject role) {
-        final ProgressDialog dialog = new ProgressDialog(activity);
+        ProgressDialog dialog = new ProgressDialog(activity);
         ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery("Users");
         usersQuery.whereEqualTo("userID", keeper.getUserID()).include("role");
 
