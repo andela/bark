@@ -1,15 +1,8 @@
 package com.andela.bark;
 
-import android.app.Fragment;
-import android.database.DataSetObserver;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
-import com.andela.bark.fragments.EventDetailFragment;
 import com.andela.bark.fragments.EventListFragment;
 
 import org.junit.After;
@@ -25,9 +18,6 @@ import org.robolectric.util.FragmentTestUtil;
 import static junit.framework.Assert.*;
 import static org.assertj.android.api.Assertions.assertThat;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
-
-import java.lang.annotation.ElementType;
-import java.util.ArrayList;
 
 /**
  * Created by andela-cj on 9/7/15.
@@ -50,11 +40,13 @@ public class EventListFragmentTest {
     @Test
     public void testLisAdapter() throws Exception {
         assertNotNull(fragment);
-        setlistAdapter();
+        setListAdapter();
         assertEquals(2, fragment.getMainListView().getCount());
+        assertTrue(fragment.isAdded());
+
     }
 
-    public void setlistAdapter(){
+    public void setListAdapter(){
         String list[] = {"Event #0","Event#2"};
         ListAdapter listAdapter = new ArrayAdapter<String>(hostActivity, R.layout.simplerow,list);
         fragment.getMainListView().setAdapter(listAdapter);
@@ -67,9 +59,9 @@ public class EventListFragmentTest {
 
     @Test
     public void testTransitionOnItemClick(){
-        setlistAdapter();
+        setListAdapter();
         Shadows.shadowOf(fragment.getMainListView()).performItemClick(0);
-        assertNotNull(fragment);
+        assertFalse(fragment.isAdded());
     }
 
 

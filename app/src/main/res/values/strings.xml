@@ -10,4 +10,8 @@
     <string name="dashboard_button_text">Dashboard</string>
     <string name="scan_barcode_button_text">Scan Barcode</string>
     <string name="teststring">what</string>
+    <string name="used_ticket_msg">Ticket Has Been Used</string>
+    <string name="valid_ticket_msg">Valid Ticket!</string>
+    <string name="not_valid_ticket_msg">Ticket Not Valid</string>
+    <string name="error">Error!</string>
 </resources>

@@ -7,6 +7,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.andela.bark.FragmentHostActivity;
+
+import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.GKprManger;
+import com.andela.bark.R;
+import com.andela.bark.models.User;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -17,6 +22,14 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+
+import com.facebook.login.widget.LoginButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
 
 /**
  * Created by Jibola on 8/31/15.
@@ -30,15 +43,26 @@ public class FacebookAuth {
     }
 
     private CallbackManager mCallbackManager;
+    public void setup(){
+        setupFacebookAuth(activity);
+    }
+
     private FacebookCallback<LoginResult> mCallback = new FacebookCallback<LoginResult>() {
 
         @Override
         public void onSuccess(LoginResult loginResult) {
             AccessToken accessToken = loginResult.getAccessToken();
-            profile = Profile.getCurrentProfile();
-            Intent i  = new Intent(activity, FragmentHostActivity.class);
-            activity.startActivity(i);
             displayWelcomeMessage(profile);
+            profile = Profile.getCurrentProfile();
+
+            if(profile != null){
+                User user = User.createFacebookUser(profile);
+                GKprManger gKprManger = new GKprManger(user, activity);
+                if (gKprManger.isAuthenticated){
+                    Intent i  = new Intent(activity, FragmentHostActivity.class);
+                    activity.startActivity(i);
+                }
+            }
         }
 
         @Override
@@ -54,15 +78,18 @@ public class FacebookAuth {
     private AccessTokenTracker tracker;
     private ProfileTracker profileTracker;
 
-    public void displayWelcomeMessage(Profile profile){
-        if(profile != null){
+    public void displayWelcomeMessage(Profile profile) {
+        if (profile != null) {
             Toast.makeText(activity.getApplicationContext(), "Welcome " + profile.getName(), Toast.LENGTH_LONG).show();
             Log.i("profileid", profile.getId());
-        }
-        else{
+        } else {
             Toast.makeText(activity.getApplicationContext(), "Problem with login ", Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    public void setupFacebookAuth(Activity activity){
+        FacebookSdk.sdkInitialize(activity.getApplicationContext());
     }
 
     public void stuffInsideoncreate(){
