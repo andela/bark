@@ -36,9 +36,9 @@ public class FacebookAuth {
         public void onSuccess(LoginResult loginResult) {
             AccessToken accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
-            Intent i  = new Intent(activity, FragmentHostActivity.class);
-            activity.startActivity(i);
-            displayWelcomeMessage(profile);
+                Intent i  = new Intent(activity, FragmentHostActivity.class);
+                activity.startActivity(i);
+                displayWelcomeMessage(profile);
         }
 
         @Override
