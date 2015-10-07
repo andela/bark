@@ -43,22 +43,11 @@ public class MainActivity extends Activity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
         facebookAuth.onActivityResult(requestCode, resultCode, data);
         googleHandler.onActivityResult(requestCode, resultCode, data);
 
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     @Override
     protected void onStop() {

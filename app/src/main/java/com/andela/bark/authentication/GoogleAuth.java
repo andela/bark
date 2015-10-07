@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.GKprManger;
+import com.andela.bark.MainActivity;
 import com.andela.bark.R;
 import com.andela.bark.models.User;
 import com.google.android.gms.common.ConnectionResult;
@@ -49,13 +50,11 @@ public class GoogleAuth implements
     public GoogleAuth(Activity activity){
 
         myActivity = activity;
-        mGoogleApiClient = new GoogleApiClient.Builder(activity)
+        mGoogleApiClient = new GoogleApiClient.Builder(myActivity)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
-                .addScope(new Scope(Scopes.PROFILE))
-                .addScope(new Scope(Scopes.PLUS_ME))
                 .build();
 
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -81,6 +80,7 @@ public class GoogleAuth implements
 
     @Override
     public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -107,6 +107,7 @@ public class GoogleAuth implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
+
             onSignInClicked();
         }
     }
@@ -122,28 +123,21 @@ public class GoogleAuth implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode != myActivity.RESULT_OK) {
+            if (resultCode != Activity.RESULT_OK) {
                 mShouldResolve = false;
             }
 
             mIsResolving = false;
-            mGoogleApiClient.connect();
+            if (!mGoogleApiClient.isConnecting()) {
+                mGoogleApiClient.connect();
+            }
         }
     }
 
-    public void connect() {
-        mGoogleApiClient.connect();
-    }
-
-    public void clear(){
-        Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-    }
-
-    public boolean isConnected(){
-        return mGoogleApiClient.isConnected();
-    }
     public void disconnect(){
-        mGoogleApiClient.disconnect();
+        if (mGoogleApiClient.isConnected())
+            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+             mGoogleApiClient.disconnect();
     }
 
 }
