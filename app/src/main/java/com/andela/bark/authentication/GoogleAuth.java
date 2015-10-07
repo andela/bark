@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.andela.bark.FragmentHostActivity;
-import com.andela.bark.GKprManager;
+import com.andela.bark.GateKeeperManager;
 import com.andela.bark.R;
 import com.andela.bark.models.User;
 import com.google.android.gms.common.ConnectionResult;
@@ -56,7 +56,7 @@ public class GoogleAuth implements
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         if (person != null){
             User user = User.createGoogleUser(person);
-            GKprManager kprManger = new GKprManager(user, myActivity);
+            GateKeeperManager kprManger = new GateKeeperManager(user, myActivity);
             if(kprManger.isAuthenticated){
                 Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
                 Intent i  = new Intent(myActivity, FragmentHostActivity.class);
