@@ -9,27 +9,13 @@ import android.view.View;
 import android.widget.Toast;
 import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.GKprManger;
-import com.andela.bark.MainActivity;
 import com.andela.bark.R;
 import com.andela.bark.models.User;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.PendingResults;
-import com.google.android.gms.common.api.Result;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
-import java.util.List;
 
 /**
  * Created by andela-cj on 8/31/15.
@@ -58,7 +44,7 @@ public class GoogleAuth implements
                 .build();
 
 
-        myActivity.findViewById(R.id.sign_in_button).setOnClickListener(this);
+       myActivity.findViewById(R.id.sign_in_button).setOnClickListener(this);
         activity.findViewById(R.id.sign_in_button).setOnClickListener(this);
         ((SignInButton)activity.findViewById(R.id.sign_in_button)).setSize(SignInButton.SIZE_WIDE);
     }
@@ -136,6 +122,9 @@ public class GoogleAuth implements
         }
     }
 
+    public void connect(){
+        mGoogleApiClient.connect();
+    }
     public void disconnect(){
         if (mGoogleApiClient.isConnected())
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
