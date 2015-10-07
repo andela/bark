@@ -41,7 +41,6 @@ public class FacebookAuth {
                 Intent i  = new Intent(activity, FragmentHostActivity.class);
                 activity.startActivity(i);
                 displayWelcomeMessage(profile);
-
         }
 
         @Override
@@ -66,10 +65,6 @@ public class FacebookAuth {
                 activity.startActivity(i);
             }            Toast.makeText(activity.getApplicationContext(), "Welcome " + profile.getName(), Toast.LENGTH_LONG).show();
             Log.i("profileid", profile.getId());
-
-        }
-        else{
-            Toast.makeText(activity.getApplicationContext(), "Problem with login ", Toast.LENGTH_LONG).show();
 
         }
     }
