@@ -25,7 +25,7 @@ import com.parse.ParseInstallation;
 
 public class MainActivity extends Activity {
     private FacebookAuth fba = new FacebookAuth(this);
-//    private GoogleAuth googleHandler;
+    private GoogleAuth googleHandler;
 
     private Person person;
 
@@ -33,8 +33,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fba.stuffInsideoncreate();
-
-//        googleHandler = new GoogleAuth(this);
 
         try {
             Parse.initialize(this, "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
@@ -44,6 +42,8 @@ public class MainActivity extends Activity {
         }
 
         setContentView(R.layout.activity_main);
+        googleHandler = new GoogleAuth(this);
+
         LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
         loginButton.registerCallback(fba.getmCallbackManager(), fba.getmCallback());
     }
@@ -63,21 +63,21 @@ public class MainActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-//        googleHandler.onActivityResult(requestCode, resultCode, data);
+        googleHandler.onActivityResult(requestCode, resultCode, data);
         fba.getmCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        googleHandler.connect();
+        googleHandler.connect();
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        googleHandler.disconnect();
+        googleHandler.disconnect();
         fba.getTracker().stopTracking();
         fba.getProfileTracker().stopTracking();
         fba.logOut();
