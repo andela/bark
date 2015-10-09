@@ -38,7 +38,6 @@ public class QRCodeScanner extends Activity implements ZXingScannerView.ResultHa
     @Override
     public void handleResult(Result rawResult) {
         ticketValidator.validateTicketNumber(rawResult.getText());
-        finish();
-        startActivity(getIntent());
+
     }
 }
