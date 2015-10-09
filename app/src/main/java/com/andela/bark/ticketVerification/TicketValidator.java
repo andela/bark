@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.andela.bark.GateKeeperManager;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.util.List;
+
 
 /**
  * Created by andela on 9/21/15.
@@ -41,6 +44,7 @@ public class TicketValidator {
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             //do things
+                                            restartScanner();
                                         }
                                     });
                             AlertDialog alert = builder.create();
@@ -52,10 +56,12 @@ public class TicketValidator {
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             //do things
+                                            restartScanner();
                                         }
                                     });
                             AlertDialog alert = builder.create();
                             alert.show();
+                            ticket.put("scannedBy", GateKeeperManager.getKeeper());
                             ticket.put("used", true);
                             ticket.saveInBackground();
                         }
@@ -66,6 +72,7 @@ public class TicketValidator {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         //do things
+                                        restartScanner();
                                     }
                                 });
                         AlertDialog alert = builder.create();
@@ -77,5 +84,9 @@ public class TicketValidator {
                 }
             }
         });
+    }
+    private void restartScanner(){
+        activity.finish();
+        activity.startActivity(activity.getIntent());
     }
 }
