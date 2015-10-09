@@ -1,66 +1,62 @@
 package com.andela.bark.models;
 
+import android.util.Log;
+
 import com.facebook.Profile;
 import com.google.android.gms.plus.model.people.Person;
+import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 /**
  * Created by Andela on 9/17/15.
  */
-public class User {
+@ParseClassName("User")
+public class User extends ParseObject{
 
-    private String objectId;
-    private String userID;
-    private String firstName;
-    private String lastName;
-    private String emailAddress;
-    private String role;
-
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
-    }
-
-    public String getObjectId() {
-        return this.objectId;
+    public User(){
+        super();
     }
 
     public void setUserID(String userID) {
-        this.userID = userID;
+        put("userID", userID);
     }
 
     public String getUserID() {
-        return this.userID;
+        return getString("userID");
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        put("FirstName", firstName);
     }
 
     public String getFirstName() {
-        return this.firstName;
+        return getString("FirstName");
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        put("LastName", lastName);
     }
 
     public String getLastName() {
-        return this.lastName;
+        return getString("LastName");
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        put("emailAddress", emailAddress);
     }
 
     public String getEmailAddress() {
-        return this.emailAddress;
+        return getString("emailAddress");
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(Privilege role) {
+        put("role",role);
     }
 
-    public String getRole() {
-        return this.role;
+    public Privilege getRole() {
+        return (Privilege) getParseObject("role");
     }
 
     public static User createFacebookUser(Profile userProfile) {
