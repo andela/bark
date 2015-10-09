@@ -55,7 +55,14 @@ public class EventDetailFragment extends Fragment {
         dashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Dashboard Button Clicked", Toast.LENGTH_SHORT).show();
+                EventDashBoardFragment eventDashBoardFragment = new EventDashBoardFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                eventDashBoardFragment.setArguments(args);
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, eventDashBoardFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
