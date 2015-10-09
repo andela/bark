@@ -3,24 +3,17 @@ package com.andela.bark;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.widget.Toast;
 
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
+import com.andela.bark.models.Privilege;
+import com.andela.bark.models.User;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.plus.model.people.Person;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 
 
 public class MainActivity extends Activity {
@@ -35,6 +28,8 @@ public class MainActivity extends Activity {
         fba.stuffInsideoncreate();
 
         try {
+            ParseObject.registerSubclass(Privilege.class);
+            ParseObject.registerSubclass(User.class);
             Parse.initialize(this, "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
             ParseInstallation.getCurrentInstallation().saveInBackground();
         } catch (Exception e) {
