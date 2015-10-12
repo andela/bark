@@ -20,8 +20,6 @@ public class MainActivity extends Activity {
     private FacebookAuth fba = new FacebookAuth(this);
     private GoogleAuth googleHandler;
 
-    private Person person;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

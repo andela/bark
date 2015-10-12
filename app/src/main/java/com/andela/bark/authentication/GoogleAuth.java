@@ -1,6 +1,7 @@
 package com.andela.bark.authentication;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class GoogleAuth implements
     private boolean mIsResolving = false;
     private boolean mShouldResolve = false;
     private Person person;
+    ProgressDialog progress;
 
     private Activity myActivity;
 
@@ -54,6 +56,7 @@ public class GoogleAuth implements
     public void onConnected(Bundle bundle) {
         mShouldResolve = false;
         this.person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+        if (progress!= null) progress.dismiss();
         if (person != null){
             User user = User.createGoogleUser(person);
             GateKeeperManager kprManger = new GateKeeperManager(user, myActivity);
@@ -86,16 +89,24 @@ public class GoogleAuth implements
                 }
             } else {
                 Toast.makeText(myActivity, "Connection could not be resolved", Toast.LENGTH_SHORT).show();
+                if (progress!= null && progress.isShowing()) progress.dismiss();
+                myActivity.findViewById(R.id.sign_in_button).setEnabled(true);
             }
         } else {
+            if (progress!= null && progress.isShowing()) progress.dismiss();
             Toast.makeText(myActivity, "Signed-out", Toast.LENGTH_SHORT).show();
+            myActivity.findViewById(R.id.sign_in_button).setEnabled(true);
+
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
-
+            progress = new  ProgressDialog (myActivity);
+            progress.setMessage("Loading...");
+            progress.show();
+            v.setEnabled(false);
             onSignInClicked();
         }
     }
@@ -125,9 +136,11 @@ public class GoogleAuth implements
     public void connect(){
         mGoogleApiClient.connect();
     }
+
     public void disconnect(){
         if (mGoogleApiClient.isConnected())
             Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient);
+        myActivity.findViewById(R.id.sign_in_button).setEnabled(true);
         mGoogleApiClient.disconnect();
     }
 
