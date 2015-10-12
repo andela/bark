@@ -8,4 +8,5 @@
 app/build
 *.iml
 app/*.iml
+stringsK.xml
 
