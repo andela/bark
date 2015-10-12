@@ -1,29 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.andela.bark.fragments.TicketVerificationFragment"
-              android:orientation="vertical" android:weightSum="1">
+              android:orientation="vertical">
 
     <EditText
         android:id="@+id/ticket_number_field"
         android:hint="@string/ticket_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"/>
+        android:layout_margin="40dp"
+        android:padding="16dp"
+        />
 
     <Button
         android:id="@+id/submit_ticket_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:text="@string/verify_ticket_button" android:layout_weight="0.13"/>
+        android:layout_below="@+id/ticket_number_field"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+
+        android:layout_centerHorizontal="true"
+        android:text="@string/verify_ticket_button" />
     <Button
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:text="@string/scan_barcode_button_text"
         android:id="@+id/scan_button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.53"/>
+        android:layout_alignParentBottom="true"
+        />
 
-</LinearLayout>
+</RelativeLayout>

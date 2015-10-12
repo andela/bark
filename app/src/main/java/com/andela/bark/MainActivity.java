@@ -1,8 +1,21 @@
 package com.andela.bark;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
@@ -10,7 +23,6 @@ import com.andela.bark.models.Privilege;
 import com.andela.bark.models.User;
 import com.facebook.Profile;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.plus.model.people.Person;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -19,12 +31,14 @@ import com.parse.ParseObject;
 public class MainActivity extends Activity {
     private FacebookAuth fba = new FacebookAuth(this);
     private GoogleAuth googleHandler;
+    private Drawable drawable;
+    SmileyView viewl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fba.stuffInsideoncreate();
-
         try {
             ParseObject.registerSubclass(Privilege.class);
             ParseObject.registerSubclass(User.class);
@@ -63,8 +77,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        viewl = new SmileyView();
+        viewl.setStyle(DialogFragment.STYLE_NO_TITLE,R.style.ThemeTransparent);
+        viewl.show(getFragmentManager(),"");
         googleHandler.connect();
-
     }
 
     @Override
@@ -80,4 +96,6 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

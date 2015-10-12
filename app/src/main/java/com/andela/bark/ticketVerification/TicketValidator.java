@@ -69,12 +69,7 @@ public class TicketValidator {
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setMessage("Ticket NOT Valid!")
                                 .setCancelable(false)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //do things
-                                        restartScanner();
-                                    }
-                                });
+                                .setPositiveButton("OK", null);
                         AlertDialog alert = builder.create();
                         alert.show();
                     }
