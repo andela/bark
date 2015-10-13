@@ -61,7 +61,6 @@ public class GoogleAuth implements
             User user = User.createGoogleUser(person);
             GateKeeperManager kprManger = new GateKeeperManager(user, myActivity);
             if(kprManger.isAuthenticated){
-                Toast.makeText(myActivity, "signed-in ", Toast.LENGTH_SHORT).show();
                 Intent i  = new Intent(myActivity, FragmentHostActivity.class);
                 myActivity.startActivity(i);
             }
@@ -83,18 +82,16 @@ public class GoogleAuth implements
                     connectionResult.startResolutionForResult(myActivity, RC_SIGN_IN);
                     mIsResolving = true;
                 } catch (IntentSender.SendIntentException e) {
-                    Log.e("MainActivity", "Could not resolve ConnectionResult.", e);
+                    Toast.makeText(myActivity, "Connection could not be resolved", Toast.LENGTH_SHORT).show();
                     mIsResolving = false;
                     mGoogleApiClient.connect();
                 }
             } else {
-                Toast.makeText(myActivity, "Connection could not be resolved", Toast.LENGTH_SHORT).show();
                 if (progress!= null && progress.isShowing()) progress.dismiss();
                 myActivity.findViewById(R.id.sign_in_button).setEnabled(true);
             }
         } else {
             if (progress!= null && progress.isShowing()) progress.dismiss();
-            Toast.makeText(myActivity, "Signed-out", Toast.LENGTH_SHORT).show();
             myActivity.findViewById(R.id.sign_in_button).setEnabled(true);
 
         }
@@ -116,7 +113,6 @@ public class GoogleAuth implements
 
         mShouldResolve = true;
         mGoogleApiClient.connect();
-        Toast.makeText(myActivity, "Signing in", Toast.LENGTH_LONG).show();
     }
 
 
