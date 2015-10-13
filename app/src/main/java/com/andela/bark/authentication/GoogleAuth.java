@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.activities.FragmentHostActivity;
 import com.andela.bark.GateKeeperManager;
 import com.andela.bark.R;
 import com.andela.bark.models.User;

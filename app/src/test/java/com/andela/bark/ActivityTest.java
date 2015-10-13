@@ -6,6 +6,7 @@ package com.andela.bark;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import com.andela.bark.activities.MainActivity;
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
 

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.andela.bark.FragmentHostActivity;
+import com.andela.bark.activities.FragmentHostActivity;
 import com.andela.bark.GateKeeperManager;
 import com.andela.bark.models.User;
 import com.facebook.AccessToken;

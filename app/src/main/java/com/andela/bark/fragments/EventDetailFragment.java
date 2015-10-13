@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.app.Fragment;
 
 import android.widget.Button;
-import android.widget.Toast;
 
 
-import com.andela.bark.FragmentHostActivity;
 import com.andela.bark.R;
 
 public class EventDetailFragment extends Fragment {

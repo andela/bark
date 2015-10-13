@@ -1,15 +1,9 @@
 package com.andela.bark;
 
-import android.app.Fragment;
-import android.database.DataSetObserver;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
-import com.andela.bark.fragments.EventDetailFragment;
+import com.andela.bark.activities.FragmentHostActivity;
 import com.andela.bark.fragments.EventListFragment;
 
 import org.junit.After;
@@ -25,9 +19,6 @@ import org.robolectric.util.FragmentTestUtil;
 import static junit.framework.Assert.*;
 import static org.assertj.android.api.Assertions.assertThat;
 import static org.robolectric.util.FragmentTestUtil.startFragment;
-
-import java.lang.annotation.ElementType;
-import java.util.ArrayList;
 
 /**
  * Created by andela-cj on 9/7/15.

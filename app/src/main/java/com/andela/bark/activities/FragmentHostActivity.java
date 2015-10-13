@@ -1,10 +1,11 @@
-package com.andela.bark;
+package com.andela.bark.activities;
 
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.app.FragmentManager;
 
+import com.andela.bark.R;
 import com.andela.bark.fragments.EventListFragment;
 
 /**
