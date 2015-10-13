@@ -12,7 +12,7 @@ tools:context="com.andela.bark.fragments.EventDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:background="@color/default_color"
+        android:background="@drawable/button_state"
         android:text="@string/check_in_button_text" />
 
     <Button
@@ -23,6 +23,6 @@ tools:context="com.andela.bark.fragments.EventDetailFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:background="@color/default_color"
+        android:background="@drawable/button_state"
         android:text="@string/dashboard_button_text"/>
 </LinearLayout>

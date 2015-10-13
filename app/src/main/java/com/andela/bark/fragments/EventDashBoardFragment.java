@@ -27,7 +27,7 @@ public class EventDashBoardFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.simplerow, container, false);
         tvNumberOfTicketsScanned = (TextView) v.findViewById(R.id.rowTextView);
-//        tvNumberOfTicketsScanned.setTextColor();
+        tvNumberOfTicketsScanned.setBackgroundColor(getResources().getColor(R.color.operand_color));
         tvNumberOfTicketsScanned.setText("Number of Tickets Scanned: " + getNumberOfUsedTickets());
         return v;
 
