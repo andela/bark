@@ -23,7 +23,7 @@ public class EventDetailFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getActivity().setContentView(R.layout.activity_fragmentcontainer);
+        getActivity().setContentView(R.layout.fragment_container);
         super.onCreate(savedInstanceState);
     }
 

@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     private FacebookAuth fba = new FacebookAuth(this);
     private GoogleAuth googleHandler;
     private Drawable drawable;
-    SmileyView viewl;
 
 
     @Override
@@ -77,9 +76,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        viewl = new SmileyView();
-        viewl.setStyle(DialogFragment.STYLE_NO_TITLE,R.style.ThemeTransparent);
-        viewl.show(getFragmentManager(),"");
         googleHandler.connect();
     }
 

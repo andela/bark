@@ -104,6 +104,7 @@ public class GoogleAuth implements
     public void onClick(View v) {
         if (v.getId() == R.id.sign_in_button) {
             progress = new  ProgressDialog (myActivity);
+            progress.setCancelable(false);
             progress.setMessage("Loading...");
             progress.show();
             v.setEnabled(false);

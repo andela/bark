@@ -2,18 +2,27 @@
 xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="match_parent" android:id="@+id/eventDetails"
 tools:context="com.andela.bark.fragments.EventDetailFragment"
+    android:background="@color/operand_color"
     android:gravity="center">
-
 
     <Button
         android:id="@+id/manage_event"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:background="@color/default_color"
         android:text="@string/check_in_button_text" />
 
     <Button
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:id="@+id/event_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:background="@color/default_color"
         android:text="@string/dashboard_button_text"/>
 </LinearLayout>

@@ -14,7 +14,7 @@ public class FragmentHostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragmentcontainer);
+        setContentView(R.layout.fragment_container);
         setUpFragment();
     }
     private void setUpFragment(){

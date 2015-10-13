@@ -2,6 +2,7 @@ package com.andela.bark.ticketVerification;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -28,11 +29,16 @@ import java.util.List;
  */
 public class TicketValidator {
     Activity activity;
+    ProgressDialog progress;
     public TicketValidator(Activity activity) {
         this.activity = activity;
     }
 
     public void validateTicketNumber(String ticketNumberInput){
+        progress = new ProgressDialog(activity);
+        progress.setCancelable(false);
+        progress.setMessage("Verifying...");
+        progress.show();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
         query.whereEqualTo("ticketNumber", ticketNumberInput);
 
@@ -46,11 +52,15 @@ public class TicketValidator {
                         Boolean used = ticket.getBoolean("used");
                         if (used) {
                             smiley = BuildSmileyDialog("Ticket Has Been Used!", R.drawable.frown, Color.RED);
-                            smiley.show();
+                            if (progress.isShowing()) progress.dismiss();
+                            if (!smiley.isShowing())
+                                 smiley.show();
                         } else {
                             smiley = BuildSmileyDialog("Valid Ticket!", R.drawable.smile, Color.GREEN);
                             smiley.setOnDismissListener(dismissListener);
-                            smiley.show();
+                            if (progress.isShowing()) progress.dismiss();
+                            if (!smiley.isShowing())
+                                smiley.show();
                             ticket.put("scannedBy", GateKeeperManager.getKeeper());
                             ticket.put("used", true);
                             ticket.saveInBackground();
@@ -58,7 +68,9 @@ public class TicketValidator {
                     } else {
                         smiley = BuildSmileyDialog("Ticket NOT Valid!", R.drawable.frown, Color.RED);
                         smiley.setOnDismissListener(dismissListener);
-                        smiley.show();
+                        if (progress.isShowing()) progress.dismiss();
+                        if (!smiley.isShowing())
+                            smiley.show();
 
                     }
                 } else {

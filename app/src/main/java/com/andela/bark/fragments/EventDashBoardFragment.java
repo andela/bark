@@ -25,8 +25,9 @@ public class EventDashBoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_event_dash_board, container, false);
-        tvNumberOfTicketsScanned = (TextView) v.findViewById(R.id.tvNumberOfTickets);
+        View v = inflater.inflate(R.layout.simplerow, container, false);
+        tvNumberOfTicketsScanned = (TextView) v.findViewById(R.id.rowTextView);
+//        tvNumberOfTicketsScanned.setTextColor();
         tvNumberOfTicketsScanned.setText("Number of Tickets Scanned: " + getNumberOfUsedTickets());
         return v;
 

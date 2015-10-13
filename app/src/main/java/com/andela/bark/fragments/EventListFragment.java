@@ -40,7 +40,7 @@ public class EventListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_eventlist, container, false);
-        getActivity().setTitle("Event List");
+        getActivity().setTitle("Events");
 
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
@@ -89,7 +89,7 @@ public class EventListFragment extends Fragment {
                         event.id = ob.getObjectId();
                         events.add(event.name);
                     }
-                    listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
+                    listAdapter = new ArrayAdapter<>(getActivity(), R.layout.simplerow, events.toArray(new String[0]));
                     mainListView.setAdapter(listAdapter);
                 }
             }

@@ -1,28 +1,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.andela.bark.fragments.TicketVerificationFragment"
-              android:orientation="vertical">
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:context="com.andela.bark.fragments.TicketVerificationFragment"     android:orientation="vertical"
+    android:background="@color/operand_color"
+    >
 
     <EditText
         android:id="@+id/ticket_number_field"
         android:hint="@string/ticket_number"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
         android:padding="16dp"
+
         />
 
     <Button
         android:id="@+id/submit_ticket_number"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ticket_number_field"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
+        android:padding="16dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
 
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_state"
         android:layout_centerHorizontal="true"
         android:text="@string/verify_ticket_button" />
     <Button
@@ -30,9 +41,11 @@
         android:layout_height="100dp"
         android:text="@string/scan_barcode_button_text"
         android:id="@+id/scan_button"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_margin="10dp"
+        android:textSize="25sp"
         android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_state"
         android:layout_alignParentBottom="true"
         />
 
