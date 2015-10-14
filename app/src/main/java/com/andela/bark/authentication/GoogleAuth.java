@@ -62,7 +62,9 @@ public class GoogleAuth implements
             GateKeeperManager kprManger = new GateKeeperManager(user, myActivity);
             if(kprManger.isAuthenticated){
                 Intent i  = new Intent(myActivity, FragmentHostActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 myActivity.startActivity(i);
+                myActivity.finish();
             }
         }
     }
