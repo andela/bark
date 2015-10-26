@@ -7,16 +7,13 @@ package com.andela.bark.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andela.bark.R;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.andela.bark.models.Ticket;
 
 public class EventDashBoardFragment extends Fragment {
     private TextView tvNumberOfTicketsScanned;
@@ -28,22 +25,9 @@ public class EventDashBoardFragment extends Fragment {
         View v = inflater.inflate(R.layout.simplerow, container, false);
         tvNumberOfTicketsScanned = (TextView) v.findViewById(R.id.rowTextView);
         tvNumberOfTicketsScanned.setBackgroundColor(getResources().getColor(R.color.operand_color));
-        tvNumberOfTicketsScanned.setText("Number of Tickets Scanned: " + getNumberOfUsedTickets());
+        tvNumberOfTicketsScanned.setText("Number of Tickets Scanned: " + Ticket.getNumberOfUsedTickets());
         return v;
-
     }
 
-    private int getNumberOfUsedTickets() {
-        int num = 0;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
-        query.whereEqualTo("used", true);
-        try {
-            num = query.count();
-            Log.i("Number of used tickets", num + "");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return num;
-    }
 
 }
