@@ -7,13 +7,18 @@ import com.google.android.gms.plus.model.people.Person;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+
+import java.util.List;
 
 /**
  * Created by Andela on 9/17/15.
  */
 @ParseClassName("User")
 public class User extends ParseObject{
+
+    private static final String CLASSNAME = "User";
 
     public User(){
         super();
@@ -52,11 +57,15 @@ public class User extends ParseObject{
     }
 
     public void setRole(Privilege role) {
-        put("role",role);
+        put("role", role);
     }
 
     public Privilege getRole() {
         return (Privilege) getParseObject("role");
+    }
+
+    public void update(){
+        this.saveInBackground();
     }
 
     public static User createFacebookUser(Profile userProfile) {
@@ -73,4 +82,17 @@ public class User extends ParseObject{
         user.setUserID(person.getId());
         return user;
     }
+
+
+    public static void getUserWithID(String id, QueryCallback callback){
+        final String include = "role";
+        ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery(CLASSNAME);
+        usersQuery.whereEqualTo("userID", id).include(include);
+        try {
+            callback.onSuccess(usersQuery.find());
+        } catch (ParseException e) {
+            callback.onError(e);
+        }
+    }
+
 }
