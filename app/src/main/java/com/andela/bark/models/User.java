@@ -1,16 +1,12 @@
 package com.andela.bark.models;
 
-import android.util.Log;
-
 import com.facebook.Profile;
 import com.google.android.gms.plus.model.people.Person;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.SaveCallback;
 
-import java.util.List;
 
 /**
  * Created by Andela on 9/17/15.
