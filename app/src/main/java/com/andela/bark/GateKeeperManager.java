@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 
 import com.andela.bark.models.Privilege;
+import com.andela.bark.models.QueryCallback;
 import com.andela.bark.models.User;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -33,58 +34,66 @@ public class GateKeeperManager {
     }
 
     public void authenticate(final Privilege role) {
-        ProgressDialog dialog = new ProgressDialog(activity);
-        ParseQuery<ParseObject> usersQuery = ParseQuery.getQuery("User");
-        usersQuery.whereEqualTo("userID", keeper.getUserID()).include("role");
-
+        final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setMessage("Fetching...");
-        try {
-            dialog.show();
-            List<ParseObject> list = usersQuery.find();
-            if (dialog.isShowing()) dialog.dismiss();
+        dialog.show();
+        User.getUserWithID(keeper.getUserID(), new QueryCallback() {
 
-            if (list!= null && list.size() == 0) {
-                createUserWithPrivilege();
-                isAuthenticated = true;
-            } else {
-                User user = (User) list.remove(0);
-                Privilege userRole = (Privilege)user.getParseObject("role");
-                if ( userRole.getObjectId().equals(role.getObjectId())) {
-                    keeper = user;
+            @Override
+            public void onSuccess(List<?> list) {
+                if (list != null && list.size() == 0) {
+                    if (dialog.isShowing()) dialog.dismiss();
+                    createUserWithPrivilege();
                     isAuthenticated = true;
+                } else {
+                    User user = (User) list.remove(0);
+                    Privilege userRole = (Privilege) user.getParseObject("role");
+                    if (userRole.getObjectId().equals(role.getObjectId())) {
+                        keeper = user;
+                        isAuthenticated = true;
+                    }
                 }
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onError(Exception e) {
+                if (dialog.isShowing()) dialog.dismiss();
+                e.printStackTrace();
+             }
+         });
     }
 
     public void getUserRoles() {
+        Privilege.fetchAll(new QueryCallback() {
+            @Override
+            public void onSuccess(List<?> list) {
+                authenticate((Privilege)list.get(0));
+            }
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
 
-        ParseQuery<ParseObject> rolesQuery = ParseQuery.getQuery("Privilege");
-        try {
-            List<ParseObject> list = rolesQuery.find();
-            authenticate((Privilege)list.get(0));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            }
+        });
     }
 
-    public void createUserWithPrivilege() throws ParseException {
-        ParseQuery<ParseObject> roleQuery = ParseQuery.getQuery("Privilege");
-        List <ParseObject> list = roleQuery.whereEqualTo("name","Admin").find();
-        Privilege role = (Privilege) list.remove(0);
-        keeper.put("role", role);
-        keeper.saveInBackground();
+    public void createUserWithPrivilege(){
+        Privilege.getPrivilegeWithName("Admin", new QueryCallback() {
+            @Override
+            public void onSuccess(List<?> list) {
+                Privilege role = (Privilege) list.remove(0);
+                keeper.setRole(role);
+                keeper.update();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
     public static User getKeeper(){
         return keeper;
-    }
-
-
-    private enum Role{
-        Admin, Manager, GateKeeper;
     }
 }
