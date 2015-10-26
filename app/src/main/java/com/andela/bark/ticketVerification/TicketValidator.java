@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.andela.bark.GateKeeperManager;
 import com.andela.bark.R;
+import com.andela.bark.models.QueryCallback;
+import com.andela.bark.models.Ticket;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -39,44 +41,44 @@ public class TicketValidator {
         progress.setCancelable(false);
         progress.setMessage("Verifying...");
         progress.show();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
-        query.whereEqualTo("ticketNumber", ticketNumberInput);
 
-        query.findInBackground(new FindCallback<ParseObject>() {
+        Ticket.validateTicketNumber(ticketNumberInput, new QueryCallback() {
+            Dialog smiley;
             @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                Dialog smiley;
-                if (e == null) {
-                    if (list.size() == 1) {
-                        ParseObject ticket = list.get(0);
-                        Boolean used = ticket.getBoolean("used");
-                        if (used) {
-                            smiley = BuildSmileyDialog("Ticket Has Been Used!", R.drawable.frown, Color.RED);
-                            if (progress.isShowing()) progress.dismiss();
-                            if (!smiley.isShowing())
-                                 smiley.show();
-                        } else {
-                            smiley = BuildSmileyDialog("Valid Ticket!", R.drawable.smile, Color.GREEN);
-                            smiley.setOnDismissListener(dismissListener);
-                            if (progress.isShowing()) progress.dismiss();
-                            if (!smiley.isShowing())
-                                smiley.show();
-                            ticket.put("scannedBy", GateKeeperManager.getKeeper());
-                            ticket.put("used", true);
-                            ticket.saveInBackground();
-                        }
+            public void onSuccess(List<?> list) {
+                if (list.size() == 1) {
+                    Ticket ticket = (Ticket) list.get(0);
+                    Boolean used = ticket.getBoolean("used");
+                    if (used) {
+                        smiley = BuildSmileyDialog("Ticket Has Been Used!", R.drawable.frown, Color.RED);
+                        if (progress.isShowing()) progress.dismiss();
+                        if (!smiley.isShowing())
+                            smiley.show();
                     } else {
-                        smiley = BuildSmileyDialog("Ticket NOT Valid!", R.drawable.frown, Color.RED);
+                        smiley = BuildSmileyDialog("Valid Ticket!", R.drawable.smile, Color.GREEN);
                         smiley.setOnDismissListener(dismissListener);
                         if (progress.isShowing()) progress.dismiss();
                         if (!smiley.isShowing())
                             smiley.show();
-
+                        // TODO use setValue for key in baseModel
+                        ticket.put("scannedBy", GateKeeperManager.getKeeper());
+                        ticket.put("used", true);
+                        ticket.saveInBackground();
                     }
                 } else {
-                    Log.d("Error Message", e.getMessage());
-                    Toast.makeText(activity, "Error!", Toast.LENGTH_SHORT).show();
+                    smiley = BuildSmileyDialog("Ticket NOT Valid!", R.drawable.frown, Color.RED);
+                    smiley.setOnDismissListener(dismissListener);
+                    if (progress.isShowing()) progress.dismiss();
+                    if (!smiley.isShowing())
+                        smiley.show();
+
                 }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.d("Error Message", e.getMessage());
+                Toast.makeText(activity, "Error!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -93,6 +95,8 @@ public class TicketValidator {
 
         }
     };
+
+
     private Dialog BuildSmileyDialog(String message, int resourceId, int color){
         Dialog a = new Dialog(activity);
         a.requestWindowFeature(Window.FEATURE_NO_TITLE);
