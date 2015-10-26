@@ -5,8 +5,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.util.List;
-
 /**
  * Created by andela on 10/9/15.
  */
