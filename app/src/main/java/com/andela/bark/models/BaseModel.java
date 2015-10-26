@@ -31,4 +31,7 @@ public abstract class BaseModel extends ParseObject {
         super.setObjectId(id);
     }
 
+    public void update(){
+        saveInBackground();
+    }
 }
