@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.andela.bark.R;
 import com.andela.bark.authentication.FacebookAuth;
 import com.andela.bark.authentication.GoogleAuth;
+import com.andela.bark.models.Events;
 import com.andela.bark.models.Privilege;
 import com.andela.bark.models.User;
 import com.facebook.Profile;
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         fba.stuffInsideoncreate();
         try {
+            ParseObject.registerSubclass(Events.class);
             ParseObject.registerSubclass(Privilege.class);
             ParseObject.registerSubclass(User.class);
             Parse.initialize(this, "vKYBj5ToX5nVxINd0ubtBqoRo3EyHB5jcNLS7rNw", "zFYifD7N4dHLHFZ7Js05rOrhWdnl085RJSSrFK8W");
@@ -52,7 +54,6 @@ public class MainActivity extends Activity {
             Intent i  = new Intent(this, FragmentHostActivity.class);
             startActivity(i);
         }
-        //fba.displayWelcomeMessage(profile);
     }
 
     @Override
