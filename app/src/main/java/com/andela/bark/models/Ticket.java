@@ -1,6 +1,4 @@
 package com.andela.bark.models;
-
-
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -42,7 +40,7 @@ public class Ticket extends ParseObject {
     }
 
     public static void validateTicketNumber(String ticketNumberInput, final QueryCallback callback){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Ticket");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(CLASSNAME);
         query.whereEqualTo("ticketNumber", ticketNumberInput).setLimit(1);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

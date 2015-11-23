@@ -20,8 +20,7 @@ import com.andela.bark.ticketVerification.TicketValidator;
 import com.andela.bark.activities.QRCodeScanner;
 
 
-
-public class TicketVerificationFragment extends Fragment{
+public class TicketVerificationFragment extends Fragment implements TextWatcher, View.OnClickListener {
 
     private EditText ticketNumber;
     private Button submitTicketNumber;
@@ -47,45 +46,49 @@ public class TicketVerificationFragment extends Fragment{
 
         eventId = args.getString("EventId");
 
-        ticketNumber = (EditText)v.findViewById(R.id.ticket_number_field);
-        ticketNumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        ticketNumber = (EditText) v.findViewById(R.id.ticket_number_field);
+        ticketNumber.addTextChangedListener(this);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ticketNumberInput = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        submitTicketNumber = (Button)v.findViewById(R.id.submit_ticket_number);
+        submitTicketNumber = (Button) v.findViewById(R.id.submit_ticket_number);
 
 
-        submitTicketNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ticketValidator.validateTicketNumber(ticketNumberInput);
-            }
-        });
+        submitTicketNumber.setOnClickListener(this);
 
-        scanBarcode = (Button)v.findViewById(R.id.scan_button);
-        scanBarcode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), QRCodeScanner.class);
-                i.putExtra("EventId",eventId);
-                getActivity().startActivity(i);
-            }
-        });
+        scanBarcode = (Button) v.findViewById(R.id.scan_button);
+        scanBarcode.setOnClickListener(this);
 
         return v;
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        ticketNumberInput = s.toString();
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch (id) {
+            case R.id.submit_ticket_number:
+                ticketValidator.validateTicketNumber(ticketNumberInput);
+                break;
+            case R.id.scan_button:
+                Intent intent = new Intent(getActivity(), QRCodeScanner.class);
+                intent.putExtra("EventId", eventId);
+                getActivity().startActivity(intent);
+                break;
+        }
+
+    }
 }

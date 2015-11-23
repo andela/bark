@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.andela.bark.R;
 
-public class EventDetailFragment extends Fragment {
+public class EventDetailFragment extends Fragment implements View.OnClickListener {
 
     private Button checkInButton;
     private Button dashboardButton;
@@ -30,40 +30,34 @@ public class EventDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_event_detail, container, false);
         final Bundle args = getArguments();
         String event = args.getString("Text");
-
         getActivity().setTitle(event);
 
-
-        checkInButton = (Button)v.findViewById(R.id.manage_event);
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TicketVerificationFragment ticket = new TicketVerificationFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                ticket.setArguments(args);
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, ticket)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
         dashboardButton = (Button)v.findViewById(R.id.event_dashboard);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventDashBoardFragment eventDashBoardFragment = new EventDashBoardFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                eventDashBoardFragment.setArguments(args);
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, eventDashBoardFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        checkInButton = (Button)v.findViewById(R.id.manage_event);
+        checkInButton.setOnClickListener(this);
+        dashboardButton.setOnClickListener(this);
 
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v ==  checkInButton) {
+            TicketVerificationFragment ticket = new TicketVerificationFragment();
+            ticket.setArguments(getArguments());
+            replaceFragment(ticket);
+        } else if (v == dashboardButton) {
+            EventDashBoardFragment eventDashBoardFragment = new EventDashBoardFragment();
+            eventDashBoardFragment.setArguments(getArguments());
+            replaceFragment(eventDashBoardFragment);
+        }
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

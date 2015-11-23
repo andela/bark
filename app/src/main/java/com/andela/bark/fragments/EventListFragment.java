@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by andela on 8/31/15.
  */
-public class EventListFragment extends Fragment {
+public class EventListFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ArrayAdapter<String> listAdapter;
     private ListView mainListView;
     private List<Events> eventsList;
@@ -46,32 +46,10 @@ public class EventListFragment extends Fragment {
 
         mainListView = (ListView) v.findViewById( R.id.mainListView );
         inflateEventList();
+
         mainListView.setAdapter(listAdapter);
+        mainListView.setOnItemClickListener(this);
 
-        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getAdapter().getItem(position).toString();
-                Bundle args = new Bundle();
-                args.putString("Text", item);
-                if (eventsList != null) {
-                    Events event = eventsList.get(position);
-                    String name = event.getString("Name");
-                    String eventId = event.getObjectId();
-                    args.putString("Event", name);
-                    args.putString("EventId", eventId);
-                }
-
-                EventDetailFragment eventDetailFragment = new EventDetailFragment();
-                eventDetailFragment.setArguments(args);
-                FragmentManager fragmentManager = getFragmentManager();
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainer, eventDetailFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
         return v;
     }
 
@@ -100,4 +78,27 @@ public class EventListFragment extends Fragment {
         return mainListView;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        String item = parent.getAdapter().getItem(position).toString();
+        Bundle args = new Bundle();
+        args.putString("Text", item);
+        if (eventsList != null) {
+            Events event = eventsList.get(position);
+            String name = event.getString("Name");
+            String eventId = event.getObjectId();
+            args.putString("Event", name);
+            args.putString("EventId", eventId);
+        }
+
+        EventDetailFragment eventDetailFragment = new EventDetailFragment();
+        eventDetailFragment.setArguments(args);
+        FragmentManager fragmentManager = getFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, eventDetailFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 }

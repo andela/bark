@@ -11,7 +11,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 /**
  * Created by andela on 9/21/15.
  */
-public class QRCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler{
+public class QRCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
     private TicketValidator ticketValidator;
     @Override
